@@ -19,7 +19,7 @@ class RMIConfigLoader{
     FileInputStream input = null;
 
     try{
-      input = new FileInputStream("rmi.properties");
+      input = new FileInputStream("src/RMIServer/rmi.properties");
 
       prop.load(input);
 

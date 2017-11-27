@@ -1255,7 +1255,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
                 i=0;
 
               } catch (SocketTimeoutException ste){
-                System.out.println("Main RMI Servir not responding");
+                System.out.println("Main RMI Server not responding");
                 i++;
               } catch (IOException ioe){
                 System.out.println("Network Problems");
