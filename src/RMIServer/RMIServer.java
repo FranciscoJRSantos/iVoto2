@@ -730,14 +730,11 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
                             Thread.sleep(1000);
                             DatagramPacket toSend = new DatagramPacket(message, message.length, InetAddress.getByName("127.0.0.1"), secUDP);
                             aSocket.send(toSend);
-                            System.out.println("[UDP] Ping");
                             DatagramPacket toReceive = new DatagramPacket(buffer, buffer.length);
                             aSocket.receive(toReceive);
-                            System.out.println("[UDP] Pong");
                             i = 0;
 
                         } catch (SocketTimeoutException ste) {
-                            System.out.println("Backup server isn't responding");
                             i++;
                         } catch (IOException ioe) {
                             System.out.println("Networking Problems");
@@ -754,8 +751,6 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
                         }
 
                     } while (i < retries);
-
-                    System.out.println("Backup Server failed! \n Retrying pings");
 
 
                 }
@@ -784,14 +779,11 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
                             DatagramPacket toSend = new DatagramPacket(message, message.length, InetAddress.getByName("127.0.0.1"), mainUDP);
 
                             aSocket.send(toSend);
-                            System.out.println("[UDP] Ping");
                             DatagramPacket toReceive = new DatagramPacket(buffer, buffer.length);
                             aSocket.receive(toReceive);
-                            System.out.println("[UDP] Pong");
                             i = 0;
 
                         } catch (SocketTimeoutException ste) {
-                            System.out.println("Main RMI Server not responding");
                             i++;
                         } catch (IOException ioe) {
                             System.out.println("Network Problems");

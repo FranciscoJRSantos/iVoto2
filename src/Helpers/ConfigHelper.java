@@ -6,7 +6,6 @@ import java.util.Properties;
 
 public class ConfigHelper {
 
-    private int Port;
     private String RMIName;
 
     public ConfigHelper(){
@@ -23,7 +22,6 @@ public class ConfigHelper {
 
             prop.load(input);
 
-            this.Port= Integer.parseInt(prop.getProperty("Port"));
             this.RMIName=prop.getProperty("RMIName");
 
         } catch (IOException ioe){
@@ -39,7 +37,6 @@ public class ConfigHelper {
         }
     }
 
-    public int getPort() { return this.Port; }
     public String getRMIName() { return this.RMIName; }
 
 

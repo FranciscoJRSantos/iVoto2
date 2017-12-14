@@ -3,14 +3,15 @@ package Beans;
 import RMIServer.*;
 import Helpers.ConfigHelper;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-class Bean {
+class Bean implements Serializable{
 
-    ServerInterface server;
+    ServerInterface server = null;
 
     Bean(){
 
@@ -18,7 +19,7 @@ class Bean {
             ConfigHelper config = new ConfigHelper();
             String RMIName = config.getRMIName();
 
-            server = (ServerInterface) Naming.lookup(RMIName);
+            this.server = (ServerInterface) Naming.lookup(RMIName);
 
         } catch (RemoteException e) {
             e.printStackTrace();

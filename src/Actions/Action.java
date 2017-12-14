@@ -5,10 +5,10 @@ import org.apache.struts2.interceptor.SessionAware;
 import java.util.Map;
 
 public class Action extends ActionSupport implements SessionAware{
-    private Map<String,Object> session;
+    Map<String,Object> session;
 
     @Override
-    public void setSession(Map<String, Object> map) {
-
+    public void setSession(Map<String,Object> map){
+        this.session = map;
     }
 }

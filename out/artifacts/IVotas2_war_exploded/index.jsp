@@ -1,6 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%--
   Created by IntelliJ IDEA.
   User: franciscosantos
@@ -25,6 +25,6 @@
         </s:form>
     </ul>
 </div>
-<h2> Register</h2>
+<h2> Create New Account Here</h2>
 </body>
 </html>
