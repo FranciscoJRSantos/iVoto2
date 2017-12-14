@@ -35,7 +35,7 @@ class DatabaseConnection{
     try {
 
       connection = DriverManager.getConnection(
-          "jdbc:mysql://127.0.0.1:3306/ivotobd?useSSL=false",
+          "jdbc:mysql://127.0.0.1:3306/ivotobd2?useSSL=false",
               "bd",
           "bd");
 

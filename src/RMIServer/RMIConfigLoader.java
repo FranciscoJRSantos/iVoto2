@@ -1,7 +1,7 @@
 package RMIServer;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 class RMIConfigLoader{
@@ -16,11 +16,15 @@ class RMIConfigLoader{
 
   RMIConfigLoader(){
     Properties prop = new java.util.Properties();
-    FileInputStream input = null;
+    InputStream input = null;
 
     try{
-      input = new FileInputStream("src/RMIServer/rmi.properties");
+      input = getClass().getResourceAsStream("/RMIServer/rmi.properties");
 
+      if(input == null){
+        System.out.println("File could not be located!");
+        return;
+      }
       prop.load(input);
 
       this.rmiName = prop.getProperty("rmiName");
