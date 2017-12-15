@@ -1,3 +1,6 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="Bean" scope="request" type="Actions.Action"/>
 <%--
   Created by IntelliJ IDEA.
   User: franciscosantos
@@ -14,7 +17,13 @@
 <div>
     <h2>New user</h2>
 </div>
+
 <div>
+    <s:form action="create${Bean}" method="POST">
+        <c:forEach items="${Bean}" var="value">
+            <c:out value="$value"/>
+        </c:forEach>
+    </s:form>
 </div>
 
 </body>

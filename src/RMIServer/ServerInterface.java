@@ -1,7 +1,8 @@
 package RMIServer;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface ServerInterface extends Remote{
     // Create

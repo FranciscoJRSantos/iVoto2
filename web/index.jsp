@@ -26,5 +26,8 @@
     </ul>
 </div>
 <h2> Create New Account Here</h2>
+<s:form action="register" method="GET">
+    <s:submit value="Register"/>
+</s:form>
 </body>
 </html>

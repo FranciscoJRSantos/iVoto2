@@ -11,6 +11,15 @@
     <constant name="struts.action.excludePattern" value="/ws"/>
 
     <package name="IVoto2" extends="struts-default">
+
+        <interceptors>
+            <interceptor name="sessionInterceptor" class="Interceptors.SessionInterceptor" />
+            <interceptor-stack name="sessionStack">
+                <interceptor-ref name="sessionInterceptor" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
         <default-action-ref name="index" />
 
         <global-results>
@@ -21,19 +30,61 @@
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
 
-        <action name="index" class="Actions.UserAction" method="execute">
+        <action name="index" class="Actions.Action" method="execute">
             <result name="success"> index.jsp </result>
-        </action>
-
-        <action name="register" class="Actions.UserAction" method="register">
-            <result name="registerSucess"> platform.jsp </result>
-            <result name="registerError"> createEntity.jsp </result>
         </action>
 
         <action name="login" class="Actions.UserAction" method="login">
             <result name="success"> platform.jsp </result>
             <result name="error"> index.jsp </result>
         </action>
+
+        <action name="createUser" class="Actions.UserAction" method="show">
+            <param name="bean"> </param>
+            <result name="success"> createEntity.jsp </result>
+        </action>
+
+        <action name="createUO" class="Actions.UnidadeOrganicaAction" method="show">
+            <result name="success"> createEntity.jsp </result>
+        </action>
+
+        <action name="createEleicao" class="Actions.EleicaoAction" method="show">
+            <result name="success"> createEntity.jsp </result>
+        </action>
+
+        <action name="createMesaVoto" class="Actions.MesaVotoAction" method="show">
+            <result name="success"> createEntity.jsp </result>
+        </action>
+
+        <action name="createLista" class="Actions.UserAction" method="show">
+            <result name="success"> createEntity.jsp </result>
+        </action>
+
+        <action name="addUser" class="Actions.UserAction" method="create">
+            <result name="success"> platform.jsp </result>
+            <result name="error"> createEntity.jsp </result>
+        </action>
+
+        <action name="addUO" class="Actions.UnidadeOrganicaAction" method="create">
+            <result name="success"> platform.jsp </result>
+            <result name="error"> createEntity.jsp </result>
+        </action>
+
+        <action name="addEleicao" class="Actions.EleicaoAction" method="create">
+            <result name="success"> platform.jsp </result>
+            <result name="error"> createEntity.jsp </result>
+        </action>
+
+        <action name="addMesaVoto" class="Actions.MesaVotoAction" method="create">
+            <result name="success"> platform.jsp </result>
+            <result name="error"> createEntity.jsp </result>
+        </action>
+
+        <action name="addMesaLista" class="Actions.ListaAction" method="create">
+            <result name="success"> platform.jsp</result>
+            <result name="error"> createEntity.jsp </result>
+        </action>
+
 
     </package>
 

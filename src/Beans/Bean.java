@@ -1,7 +1,7 @@
 package Beans;
 
-import RMIServer.*;
 import Helpers.ConfigHelper;
+import RMIServer.ServerInterface;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -9,11 +9,11 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-class Bean implements Serializable{
+public class Bean implements Serializable{
 
     ServerInterface server = null;
 
-    Bean(){
+    public Bean(){
 
         try{
             ConfigHelper config = new ConfigHelper();
