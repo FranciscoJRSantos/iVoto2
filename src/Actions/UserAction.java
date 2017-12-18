@@ -10,43 +10,61 @@ public class UserAction extends Action implements SessionAware{
     private String numero_cc = null;
     private String username = null;
     private String password = null;
-    private UserBean bean = null;
-    private ArrayList<ArrayList<String>> eleicoes;
+    private ArrayList<String> users = null;
+    private String validade_cc;
+    private String morada;
+    private String contacto;
+    private String tipo;
+    private String unidade_organica;
+
+    public UserAction() {
+    }
 
     public String login() throws Exception {
-        this.getUserLoginBean().setNumeroCC(this.numero_cc);
-        this.getUserLoginBean().setUsername(this.username);
-        this.getUserLoginBean().setPassword(this.password);
+        this.getUserBean().setNumeroCC(this.numero_cc);
+        this.getUserBean().setUsername(this.username);
+        this.getUserBean().setPassword(this.password);
         if (this.numero_cc.equals("0") && this.username.equals("admin") && this.password.equals("secret")){
-            session.put("username",this.username);
-            session.put("password",this.password);
-            return "admin";
+            if (this.getUserBean() != null){
+                session.put("numero_cc",this.username);
+                session.put("loggedIn",true);
+                return "admin";
+            }
         }
-        else if (this.getUserLoginBean().tryLogin()){
-            session.put("numero_cc",this.numero_cc);
-            session.put("username",this.username);
-            session.put("password",this.password);
-            eleicoes = getUserLoginBean().getEleicoesDecorrrer();
+        else if (this.getUserBean().tryLogin()){
+            session.put("numero_cc",this.username);
+            session.put("loggedIn",true);
+            this.getUserBean().setEleicoesDecorrrer();
             return "success";
         }
         return "error";
     }
 
     public String create() throws Exception {
-        return "success";
+        this.getUserBean().setNumeroCC(this.numero_cc);
+        this.getUserBean().setUsername(this.username);
+        this.getUserBean().setPassword(this.password);
+        this.getUserBean().setContacto(Integer.parseInt(this.contacto));
+        this.getUserBean().setMorada(this.morada);
+        this.getUserBean().setValidade_cc(this.validade_cc);
+        this.getUserBean().setUn_org_nome(this.unidade_organica);
+        this.getUserBean().setTipo(Integer.parseInt(this.tipo));
+        if(this.getUserBean().createUser()){
+            return "success";
+        }
+        else return "error";
     }
 
-    private UserBean getUserLoginBean(){
-        if(!session.containsKey("UserLoginBean")){
+    private UserBean getUserBean(){
+        if(!session.containsKey("UserBean")){
             this.setLoginBean(new UserBean());
         }
-        return (UserBean) session.get("UserLoginBean");
+        return (UserBean) session.get("UserBean");
     }
 
     private void setLoginBean(UserBean userBean){
-        session.put("UserLoginBean",userBean);
+        session.put("UserBean",userBean);
     }
-
 
     public void setPassword(String password) {
         this.password = password;
@@ -58,7 +76,26 @@ public class UserAction extends Action implements SessionAware{
 
     public void setUsername(String username) { this.username = username; }
 
+    public void setValidade_cc(String validade_cc) { this.validade_cc = validade_cc; }
+
+    public void setMorada(String morada) { this.morada = morada; }
+
+    public void setContacto(String contacto) { this.contacto = contacto; }
+
+    public void setTipo(String tipo) { this.tipo = tipo; }
+
+    public void setUnidade_organica(String unidade_organica) { this.unidade_organica = unidade_organica; }
+
     public String show() throws Exception {
+        return "success";
+    }
+
+    public String showAll() throws Exception {
+        this.users = this.getUserBean().getUsers();
+        return "success";
+    }
+
+    public String vote() throws Exception {
         return "success";
     }
 

@@ -1,5 +1,6 @@
 package Interceptors;
 
+import Actions.UserAction;
 import Beans.UserBean;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
@@ -14,9 +15,12 @@ public class SessionInterceptor implements Interceptor {
 
         Map<String, Object> sessionAttributes = invocation.getInvocationContext().getSession();
 
-        UserBean userBean = (UserBean) sessionAttributes.get("UserLoginBean");
+        UserBean userBean = (UserBean) sessionAttributes.get("UserBean");
 
         if(userBean != null) {
+            return invocation.invoke();
+        }
+        else if(invocation.getAction() instanceof UserAction){
             return invocation.invoke();
         }
         else{

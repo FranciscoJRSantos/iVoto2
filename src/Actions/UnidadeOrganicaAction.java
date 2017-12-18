@@ -15,4 +15,8 @@ public class UnidadeOrganicaAction extends Action {
         this.unidades_organicas = new UnidadeOrganicaBean().getUnidadesOrganicas();
         return "success";
     }
+
+    public String showAll() throws Exception {
+        return "success";
+    }
 }

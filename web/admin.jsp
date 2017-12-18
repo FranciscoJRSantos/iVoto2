@@ -20,13 +20,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-1 col-md-1">
-        <s:form action="createUser" method="GET">
+        <s:form action="addUser" method="GET">
             <s:submit value="Criar Utilizador" class="btn btn-default"/>
         </s:form>
         </div>
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
-        <s:form action="showUsers" method="GET">
+        <s:form action="showAllUsers" method="GET">
             <s:submit value="Editar Utilizador" class="btn btn-default"/>
         </s:form>
         </div>
@@ -35,13 +35,13 @@
 
     <div class="row">
         <div class="col-xs-6 col-md-1">
-        <s:form action="createUO" method="GET">
+        <s:form action="addUO" method="GET">
             <s:submit value="Criar Unidade Organica" class="btn btn-default"/>
         </s:form>
         </div>
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
-        <s:form action="showUOs" method="GET">
+        <s:form action="showAllUO" method="GET">
             <s:submit value="Editar Unidade Organica" class="btn btn-default"/>
         </s:form>
         </div>
@@ -49,13 +49,13 @@
 
     <div class="row">
         <div class="col-xs-6 col-md-1">
-        <s:form action="createEleicao" method="GET">
+        <s:form action="addEleicao" method="GET">
             <s:submit value="Criar Eleicao" class="btn btn-default"/>
         </s:form>
         </div>
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
-        <s:form action="showEleicoes" method="GET">
+        <s:form action="showAllEleicoes" method="GET">
             <s:submit value="Editar Eleicao" class="btn btn-default"/>
         </s:form>
         </div>
@@ -63,13 +63,13 @@
 
     <div class="row">
         <div class="col-xs-6 col-md-1">
-        <s:form action="createLista" method="GET">
+        <s:form action="addLista" method="GET">
             <s:submit value="Criar Lista" class="btn btn-default"/>
         </s:form>
         </div>
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
-        <s:form action="showListas" method="GET">
+        <s:form action="showAllListas" method="GET">
             <s:submit value="Editar Lista" class="btn btn-default"/>
         </s:form>
         </div>
@@ -77,13 +77,13 @@
 
     <div class="row">
         <div class="col-xs-6 col-md-1">
-        <s:form action="createMesaVoto" method="GET">
+        <s:form action="addMesaVoto" method="GET">
             <s:submit value="Criar Mesa de Voto" class="btn btn-default"/>
         </s:form>
         </div>
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
-        <s:form action="showMesasVoto" method="GET">
+        <s:form action="showAllMesas" method="GET">
             <s:submit value="Editar Mesa de Voto" class="btn btn-default"/>
         </s:form>
         </div>

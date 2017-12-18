@@ -9,4 +9,8 @@ public class EleicaoAction extends Action{
     public String show() throws Exception {
         return "success";
     }
+
+    public String showAll() throws Exception {
+        return "success";
+    }
 }

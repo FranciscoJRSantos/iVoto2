@@ -177,6 +177,15 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     }
 
+    public ArrayList<String> showAllUsers() throws RemoteException{
+        ArrayList<String> utilizadores;
+        String sql = "SELECT numero_cc, nome FROM utilizador;";
+        utilizadores = database.submitQuery(sql);
+        System.out.println(utilizadores);
+
+        return utilizadores;
+    }
+
     public ArrayList<String> showUO(String nome) throws RemoteException{
 
         ArrayList<String> unidade_organica;
