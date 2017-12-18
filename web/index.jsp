@@ -11,23 +11,29 @@
 <html>
 <head>
     <title>IVotas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 </head>
 <body>
 
 <h2> Login </h2>
-<div>
-    <ul>
+<div class="container-fluid">
+    <div class="center">
         <s:form action="login" method="POST">
-            <li> Numero Cartao Cidadao: <s:textfield name="numero_cc"/> </li>
-            <li> Nome de Utilizador: <s:textfield name="username"/> </li>
-            <li> Password: <s:password name="password"/> </li>
-            <s:submit value="Login"/>
+            Numero Cartao Cidadao: <s:textfield name="numero_cc"/>
+            <br>
+            Nome de Utilizador: <s:textfield name="username"/>
+            <br>
+            Password: <s:password name="password"/>
+            <br>
+            <s:submit value="Login" class="btn btn-default"/>
         </s:form>
-    </ul>
+    </div>
 </div>
-<h2> Create New Account Here</h2>
-<s:form action="register" method="GET">
-    <s:submit value="Register"/>
-</s:form>
+
+<div class="container-fluid">
+    <h2> Login with Facebook</h2>
+</div>
 </body>
 </html>

@@ -20,10 +20,12 @@
             </interceptor-stack>
         </interceptors>
 
+        <default-interceptor-ref name="sessionStack" />
+
         <default-action-ref name="index" />
 
         <global-results>
-            <result name="error"> <!-- /Error.jsp/ --> </result>
+            <result name="error"> Error.jsp </result>
         </global-results>
 
         <global-exception-mappings>
@@ -35,56 +37,89 @@
         </action>
 
         <action name="login" class="Actions.UserAction" method="login">
+            <result name="admin"> admin.jsp </result>
             <result name="success"> platform.jsp </result>
             <result name="error"> index.jsp </result>
         </action>
 
-        <action name="createUser" class="Actions.UserAction" method="show">
-            <param name="bean"> </param>
-            <result name="success"> createEntity.jsp </result>
+        <!-- Utilizador -->
+
+        <action name="addUser" class="Actions.UserAction" method="show">
+            <result name="success"> Users/createUser.jsp </result>
         </action>
 
-        <action name="createUO" class="Actions.UnidadeOrganicaAction" method="show">
-            <result name="success"> createEntity.jsp </result>
-        </action>
-
-        <action name="createEleicao" class="Actions.EleicaoAction" method="show">
-            <result name="success"> createEntity.jsp </result>
-        </action>
-
-        <action name="createMesaVoto" class="Actions.MesaVotoAction" method="show">
-            <result name="success"> createEntity.jsp </result>
-        </action>
-
-        <action name="createLista" class="Actions.UserAction" method="show">
-            <result name="success"> createEntity.jsp </result>
-        </action>
-
-        <action name="addUser" class="Actions.UserAction" method="create">
+        <action name="createUser" class="Actions.UserAction" method="create">
             <result name="success"> platform.jsp </result>
-            <result name="error"> createEntity.jsp </result>
+            <result name="error"> Users/createUser.jsp </result>
+        </action>
+
+        <action name="showUsers" class="Actions.UserAction" method="show">
+            <result name="success"></result>
+        </action>
+
+        <action name="alterUser" class="Actions.UserAction" method="show">
+            <result name="success"></result>
+        </action>
+
+        <action name="deleteUser" class="Actions.UserAction" method="show">
+            <result name="success"></result>
+        </action>
+
+        <!-- Unidade Organica -->
+        <action name="createUO" class="Actions.UnidadeOrganicaAction" method="show">
+            <result name="success"></result>
         </action>
 
         <action name="addUO" class="Actions.UnidadeOrganicaAction" method="create">
             <result name="success"> platform.jsp </result>
-            <result name="error"> createEntity.jsp </result>
+            <result name="error"></result>
+        </action>
+
+        <action name="showUOs" class="Actions.UserAction" method="show">
+            <result name="success"></result>
+        </action>
+
+        <!-- Eleicao -->
+        <action name="createEleicao" class="Actions.EleicaoAction" method="show">
+            <result name="success"></result>
         </action>
 
         <action name="addEleicao" class="Actions.EleicaoAction" method="create">
             <result name="success"> platform.jsp </result>
-            <result name="error"> createEntity.jsp </result>
+            <result name="error"></result>
+        </action>
+
+        <action name="showEleicoes" class="Actions.UserAction" method="show">
+            <result name="success"></result>
+        </action>
+
+        <!-- Mesa de Voto -->
+        <action name="createMesaVoto" class="Actions.MesaVotoAction" method="show">
+            <result name="success"></result>
         </action>
 
         <action name="addMesaVoto" class="Actions.MesaVotoAction" method="create">
             <result name="success"> platform.jsp </result>
-            <result name="error"> createEntity.jsp </result>
+            <result name="error"></result>
         </action>
 
-        <action name="addMesaLista" class="Actions.ListaAction" method="create">
+        <action name="showMesasVoto" class="Actions.UserAction" method="show">
+            <result name="success"></result>
+        </action>
+
+        <!-- Lista -->
+        <action name="createLista" class="Actions.UserAction" method="show">
+            <result name="success"></result>
+        </action>
+
+        <action name="addLista" class="Actions.ListaAction" method="create">
             <result name="success"> platform.jsp</result>
-            <result name="error"> createEntity.jsp </result>
+            <result name="error"></result>
         </action>
 
+        <action name="showListas" class="Actions.UserAction" method="show">
+            <result name="success"></result>
+        </action>
 
     </package>
 

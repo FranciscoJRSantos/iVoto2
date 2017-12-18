@@ -1,6 +1,7 @@
 package Beans;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class UserBean extends Bean{
 
@@ -8,13 +9,19 @@ public class UserBean extends Bean{
     private Integer numero_cc = null;
     private String username = null;
     private String password = null;
+    private ArrayList<ArrayList<String>> eleicoes = null;
 
     public UserBean(){
         super();
     }
 
-    public boolean tryLogin() throws RemoteException {
-        return this.server.checkLogin(this.numero_cc,this.username,this.password);
+    public boolean tryLogin(){
+        try {
+            return this.server.checkLogin(this.numero_cc,this.username,this.password);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void setNumeroCC(String numeroCC) {
@@ -27,5 +34,14 @@ public class UserBean extends Bean{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<ArrayList<String>> getEleicoesDecorrrer(){
+        try {
+            eleicoes = server.showEleicoesDecorrer();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return eleicoes;
     }
 }

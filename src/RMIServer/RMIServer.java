@@ -258,11 +258,14 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         ArrayList<String> local;
         String sql_id = "SELECT id FROM eleicao WHERE NOW() BETWEEN inicio AND fim;";
         String sql_descricao = "SELECT descricao FROM eleicao WHERE NOW() BETWEEN inicio AND fim;";
+        String sql_local = "SELECT unidade_organica_nome FROM eleicao AS e, unidade_organica_eleicao uoe WHERE e.id = uoe.eleicao_id AND NOW() BETWEEN inicio AND fim;";
         id = database.submitQuery(sql_id);
         descricao = database.submitQuery(sql_descricao);
+        local = database.submitQuery(sql_local);
 
         eleicoes.add(id);
         eleicoes.add(descricao);
+        eleicoes.add(local);
 
         return eleicoes;
     }

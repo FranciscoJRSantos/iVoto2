@@ -1,28 +1,32 @@
 package Actions;
 
 import Beans.UserBean;
+import org.apache.struts2.interceptor.SessionAware;
 
-public class UserAction extends Action{
+import java.util.ArrayList;
+
+public class UserAction extends Action implements SessionAware{
 
     private String numero_cc = null;
     private String username = null;
     private String password = null;
     private UserBean bean = null;
+    private ArrayList<ArrayList<String>> eleicoes;
 
     public String login() throws Exception {
         this.getUserLoginBean().setNumeroCC(this.numero_cc);
         this.getUserLoginBean().setUsername(this.username);
         this.getUserLoginBean().setPassword(this.password);
-        System.out.println(this.numero_cc);
         if (this.numero_cc.equals("0") && this.username.equals("admin") && this.password.equals("secret")){
             session.put("username",this.username);
             session.put("password",this.password);
-            return "success";
+            return "admin";
         }
         else if (this.getUserLoginBean().tryLogin()){
             session.put("numero_cc",this.numero_cc);
             session.put("username",this.username);
             session.put("password",this.password);
+            eleicoes = getUserLoginBean().getEleicoesDecorrrer();
             return "success";
         }
         return "error";
@@ -53,4 +57,9 @@ public class UserAction extends Action{
     }
 
     public void setUsername(String username) { this.username = username; }
+
+    public String show() throws Exception {
+        return "success";
+    }
+
 }

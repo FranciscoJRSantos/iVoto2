@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: franciscosantos
@@ -8,9 +10,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>IVotas</title>
 </head>
 <body>
-
+<div class="container-fluid">
+    <c:forEach items="${eleicoes}" var="eleicao">
+        <c:forEach items="eleicao">
+            ID: <c:out value="${eleicao[0]}"/>
+            Nome: <c:out value="${eleicao[1]}"/>
+            Localização <c:out value="${eleicao[2]}"/>
+        </c:forEach>
+    </c:forEach>
+</div>
 </body>
 </html>

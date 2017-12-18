@@ -1,32 +1,18 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
-<jsp:useBean id="Bean" scope="request" type="Actions.Action"/>
 <%--
   Created by IntelliJ IDEA.
   User: franciscosantos
   Date: 12/12/2017
-  Time: 22:36
+  Time: 22:37
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>IVotas</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-<div>
-    <h2>New user</h2>
-</div>
-
-<div>
-    <s:form action="create${Bean}" method="POST">
-        <c:forEach items="${Bean}" var="value">
-            <c:out value="$value"/>
-        </c:forEach>
-    </s:form>
-</div>
 
 </body>
 </html>
