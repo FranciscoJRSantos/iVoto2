@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class UserBean extends Bean{
 
-    public String [] fillable = {"Numero_cc", "Username","Password","Email", "Tipo", "Morada", "Contacto"};
     private Integer numero_cc = null;
     private String username = null;
     private String password = null;
@@ -79,15 +78,12 @@ public class UserBean extends Bean{
         }
     }
 
-    public void setUsers() {
+    public ArrayList<String> getUsers() {
         try {
             this.utilizadores = server.showAllUsers();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-    }
-
-    public ArrayList<String> getUsers() {
         return this.utilizadores;
     }
 

@@ -12,7 +12,7 @@
 <head>
     <title>IVotas</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=320px, initial-scale=1, shrink-to-fit=yes">
 </head>
 <body>
 
@@ -34,7 +34,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-md-1">
+        <div class="col-xs-1 col-md-1">
         <s:form action="addUO" method="GET">
             <s:submit value="Criar Unidade Organica" class="btn btn-default"/>
         </s:form>
@@ -48,7 +48,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-md-1">
+        <div class="col-xs-1 col-md-1">
         <s:form action="addEleicao" method="GET">
             <s:submit value="Criar Eleicao" class="btn btn-default"/>
         </s:form>
@@ -62,7 +62,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-md-1">
+        <div class="col-xs-1 col-md-1">
         <s:form action="addLista" method="GET">
             <s:submit value="Criar Lista" class="btn btn-default"/>
         </s:form>
@@ -76,7 +76,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-md-1">
+        <div class="col-xs-1 col-md-1">
         <s:form action="addMesaVoto" method="GET">
             <s:submit value="Criar Mesa de Voto" class="btn btn-default"/>
         </s:form>

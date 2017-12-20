@@ -44,6 +44,11 @@
             <result name="error"> index.jsp </result>
         </action>
 
+        <action name="loginFacebook" class="Actions.UserAction" method="loginFacebook">
+            <result name="success"> platform.jsp </result>
+            <result name="error"> index.jsp </result>
+        </action>
+
         <action name="vote" class="Actions.UserAction" method="vote">
             <result name="success"> platform.jsp </result>
             <result name="error"> Error.jsp </result>
@@ -53,7 +58,7 @@
 
         <!-- Utilizador -->
 
-        <action name="addUser" class="Actions.Action" method="execute">
+        <action name="addUser" class="Actions.UserAction" method="execute">
             <result name="success"> Users/createUser.jsp </result>
         </action>
 
@@ -71,7 +76,7 @@
             <result name="success"> Users/readUser.jsp </result>
         </action>
 
-        <action name="alterUser" class="Actions.UserAction" method="show">
+        <action name="updateUser" class="Actions.UserAction" method="show">
             <result name="success"> admin.jsp </result>
             <result name="error"> showUserDetails.action </result>
         </action>
@@ -82,8 +87,8 @@
         </action>
 
         <!-- Unidade Organica -->
-        <action name="addUO" class="Actions.Action" method="execute">
-            <result name="success"> admin.jsp </result>
+        <action name="addUO" class="Actions.UnidadeOrganicaAction" method="execute">
+            <result name="success"> UnidadesOrganicas/createUO.jsp </result>
         </action>
 
         <action name="createUO" class="Actions.UnidadeOrganicaAction" method="create">
@@ -101,12 +106,12 @@
 
         <action name="alterUO" class="Actions.UnidadeOrganicaAction" method="show">
             <result name="success"> admin.jsp </result>
-            <result name="error"> showUODetails.action</result>
+            <result name="error"> showUODetails.action </result>
         </action>
         <!-- Eleicao -->
 
-        <action name="addEleicao" class="Actions.Action" method="execute">
-            <result name="success"> UnidadesOrganicas/createUO.jsp </result>
+        <action name="addEleicao" class="Actions.EleicaoAction" method="execute">
+            <result name="success"> Elections/createElection.jsp</result>
         </action>
 
         <action name="createEleicao" class="Actions.EleicaoAction" method="create">
@@ -119,7 +124,7 @@
         </action>
 
         <!-- Mesa de Voto -->
-        <action name="addMesaVoto" class="Actions.MesaVotoAction" method="create">
+        <action name="addMesaVoto" class="Actions.MesaVotoAction" method="execute">
             <result name="success"> MesasDeVoto/createMesaVoto.jsp </result>
         </action>
 
@@ -137,7 +142,7 @@
         </action>
 
         <!-- Lista -->
-        <action name="addLista" class="Actions.ListaAction" method="show">
+        <action name="addLista" class="Actions.ListaAction" method="execute">
             <result name="success"> Listas/createLista.jsp </result>
         </action>
 

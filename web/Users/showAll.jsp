@@ -10,16 +10,20 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>IVotas2</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
 <div>
-    <h2>New user</h2>
+    <h2> Utilizadores </h2>
 </div>
+<div class="container-fluid">
+    <c:forEach items="${users}" var="user">
+        <a href="<s:url action="showUserDetails"/>?user=${user}">${user}</a>
 
-<div>
+        <br>
+    </c:forEach>
 </div>
 
 </body>

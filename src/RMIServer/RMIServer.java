@@ -227,11 +227,11 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public ArrayList<ArrayList<String>> showResultadosFromEleicao(int eleicao_id) throws RemoteException{
         // recebe uma lista com [[lista,nº de votos],...]. return [[null,null]] em caso de insucesso
-        ArrayList<ArrayList<String>> resultados = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> resultados = new ArrayList<>();
         ArrayList<String> nome_lista;
         ArrayList<String> votos_lista;
         ArrayList<String> total_votos_lista;
-        ArrayList<String> percentagem_votos_lista = new ArrayList<String>();
+        ArrayList<String> percentagem_votos_lista = new ArrayList<>();
         Integer total_votos;
         Integer percentagem;
 
@@ -261,7 +261,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public ArrayList<ArrayList<String>> showEleicoesDecorrer() throws RemoteException{
 
-        ArrayList<ArrayList<String>> eleicoes = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> eleicoes = new ArrayList<>();
         ArrayList<String> id;
         ArrayList<String> descricao;
         ArrayList<String> local;
@@ -281,7 +281,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public ArrayList<ArrayList<String>> showEleicoesPassadas() throws RemoteException{
 
-        ArrayList<ArrayList<String>> eleicoes = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> eleicoes = new ArrayList<>();
         ArrayList<String> id;
         ArrayList<String> descricao;
         ArrayList<String> local;
@@ -301,12 +301,12 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public ArrayList<ArrayList<String>> showEleicoesFuturas() throws RemoteException{
 
-        ArrayList<ArrayList<String>> eleicoes = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> eleicoes = new ArrayList<>();
         ArrayList<String> id;
         ArrayList<String> descricao;
         ArrayList<String> local;
         String sql_id = "SELECT id FROM eleicao WHERE inicio > NOW() AND NOW() NOT BETWEEN inicio AND fim;";
-        String sql_descricao = "SELECT descricao FROM eleicao WHERE inicio > NOW() AND NOW() NOT BETWEEN inicio AND fim;";
+        String sql_descricao = "SELECT titulo FROM eleicao WHERE inicio > NOW() AND NOW() NOT BETWEEN inicio AND fim;";
         String sql_local = "SELECT unidade_organica_nome FROM eleicao AS e, unidade_organica_eleicao uoe WHERE e.id = uoe.eleicao_id AND inicio > NOW() AND NOW() NOT BETWEEN inicio AND fim;";
         id = database.submitQuery(sql_id);
         descricao = database.submitQuery(sql_descricao);
@@ -341,14 +341,13 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
     public ArrayList<String> pickListsFromElection(int numero_cc, int eleicao_id) throws RemoteException{
 
         String sql_get_lists = "SELECT nome FROM lista WHERE eleicao_id = '" + eleicao_id + "' AND tipo_utilizador = ( SELECT tipo FROM utilizador WHERE numero_cc='" + numero_cc + "' ) AND tipo_utilizador != 0;";
-        ArrayList<String> lists = database.submitQuery(sql_get_lists);
 
-        return lists;
+        return database.submitQuery(sql_get_lists);
     }
 
     public ArrayList<ArrayList<String>> showUtilizadoresMesaVoto(int numero, int eleicao_id) throws RemoteException{
 
-        ArrayList<ArrayList<String>> utilizadores = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> utilizadores = new ArrayList<>();
         ArrayList<String> id;
         ArrayList<String> nome;
         String sql_id = "SELECT u.numero_cc FROM utilizador AS u, mesa_voto_utilizador AS mvu WHERE u.numero_cc = mvu.utilizador_numero_CC AND mvu.mesa_voto_numero = '" + numero + "' AND mvu.eleicao_id ='" + eleicao_id + "';";
@@ -378,7 +377,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public ArrayList<ArrayList<String>> showMesasVotoEleicao(int eleicao_id) throws RemoteException{
 
-        ArrayList<ArrayList<String>> mesas = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> mesas = new ArrayList<>();
         ArrayList<String> numero_mesas;
         ArrayList<String> localizacao_mesas;
 
@@ -560,15 +559,14 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public String anticipatedVote(int cc, String lista, int eleicao_id, String pass) throws RemoteException{
 
-        String toClient = null;
-        ArrayList<String> aux1;
+        String toClient;
         ArrayList<String> aux2;
         ArrayList<String> aux3;
         ArrayList<String> check;
         String sql1 = "SELECT * FROM utilizador WHERE numero_cc='" + cc + "' AND password_hashed LIKE '" + pass + "';";
         check = database.submitQuery(sql1);
         if (check.isEmpty()){
-            return toClient;
+            return null;
         }
         String sql2 = "SELECT nome FROM lista WHERE nome LIKE '" + lista + "' AND eleicao_id='" + eleicao_id +"';";
         aux3 = database.submitQuery(sql2);
@@ -599,38 +597,34 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public boolean deleteUtilizador(int numero_cc) throws RemoteException{
 
-        boolean answer = true;
         String sql = "DELETE FROM utilizador WHERE numero_cc='" + numero_cc +"';";
         database.submitUpdate(sql);
 
-        return answer;
+        return true;
     }
 
     public boolean deleteUO(String nome) throws RemoteException{
 
-        boolean answer = true;
         String sql = "DELETE FROM unidade_organica WHERE nome LIKE " + nome +";";
         database.submitUpdate(sql);
 
-        return answer;
+        return true;
     }
 
     public boolean deleteLista(String nome, int eleicao_id) throws RemoteException{
 
-        boolean answer = true;
         String sql = "DELETE FROM lista WHERE LIKE '" + nome +"' AND eleicao id=" + eleicao_id + ";";
         database.submitUpdate(sql);
 
-        return answer;
+        return true;
     }
 
     public boolean deleteMesaVoto(int numero,String un_org_nome, int eleicao_id) throws RemoteException{
 
-        boolean answer = true;
         String sql = "DELETE FROM mesa_voto WHERE unidade_organica_nome LIKE '" + un_org_nome + "' AND eleicao_id=" + eleicao_id + " AND numero=" + numero + ";";
         database.submitUpdate(sql);
 
-        return answer;
+        return true;
     }
 
     // Security
@@ -641,14 +635,11 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public boolean checkLogin(int numero_cc, String nome, String password_hashed) throws RemoteException{
 
-        boolean answer = true;
+        boolean answer;
         String sql = "SELECT * FROM utilizador WHERE numero_cc = '" + numero_cc + "' AND nome LIKE '" + nome + "' AND password_hashed LIKE '" + password_hashed + "';";
         ArrayList check = database.submitQuery(sql);
 
-        if (check.isEmpty()){
-            answer = false;
-        }
-        else answer = true;
+        answer = !check.isEmpty();
 
 
         return answer;
@@ -656,7 +647,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public String checkCC(int numero_cc, int eleicao_id) throws RemoteException{
 
-        String answer = null;
+        String answer;
         String sql_user_data = "SELECT nome,tipo FROM utilizador WHERE numero_cc LIKE '" + numero_cc + "';";
         ArrayList<String> user_data = database.submitQuery(sql_user_data);
 
@@ -755,9 +746,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
                             try {
                                 Naming.unbind(RMIServer.rmiName);
-                            } catch (RemoteException re) {
-                            } catch (NotBoundException nbe) {
-                            } catch (MalformedURLException murle) {
+                            } catch (RemoteException | NotBoundException | MalformedURLException re) {
                             }
 
                         }

@@ -1,6 +1,37 @@
 package Beans;
 
+import java.rmi.RemoteException;
+
 public class ListaBean extends Bean{
 
-    public String [] fillable = {"Nome", "Eleicao", "Tipo"};
+    private String nome;
+    private Integer eleicao_id;
+    private Integer numero_cc;
+    private Integer tipo;
+
+    public void setEleicao_ID(Integer eleicao_id) {
+        this.eleicao_id = eleicao_id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public boolean createLista() {
+        try {
+            this.server.createLista(this.nome,this.tipo,this.eleicao_id,this.numero_cc);
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void setNumero_cc(Integer numero_cc) {
+        this.numero_cc = numero_cc;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
 }

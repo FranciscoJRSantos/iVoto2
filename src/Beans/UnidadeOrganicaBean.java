@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 public class UnidadeOrganicaBean extends Bean{
 
-    public String [] fillable = {"Nome", "Nome Faculdade"};
+    private ArrayList<String> unidades_organicas;
+    private String pertence;
+    private String nome;
 
     public UnidadeOrganicaBean(){
         super();
@@ -13,10 +15,29 @@ public class UnidadeOrganicaBean extends Bean{
 
     public ArrayList<String> getUnidadesOrganicas(){
         try{
-            return server.showAllUO();
+            this.unidades_organicas = server.showAllUO();
         } catch (RemoteException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+        return this.unidades_organicas;
+    }
+    
+    public boolean createUnidadeOrganica(){
+        try{
+            this.server.createUnidadeOrganica(this.nome,this.pertence);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public void setPertence(String pertence) {
+        this.pertence = pertence;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

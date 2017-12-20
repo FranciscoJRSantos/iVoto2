@@ -17,7 +17,8 @@ public class UserAction extends Action implements SessionAware{
     private String tipo;
     private String unidade_organica;
 
-    public UserAction() {
+    public String loginFacebook() throws Exception {
+        return "success";
     }
 
     public String login() throws Exception {
@@ -82,8 +83,6 @@ public class UserAction extends Action implements SessionAware{
 
     public void setContacto(String contacto) { this.contacto = contacto; }
 
-    public void setTipo(String tipo) { this.tipo = tipo; }
-
     public void setUnidade_organica(String unidade_organica) { this.unidade_organica = unidade_organica; }
 
     public String show() throws Exception {
@@ -91,7 +90,7 @@ public class UserAction extends Action implements SessionAware{
     }
 
     public String showAll() throws Exception {
-        this.users = this.getUserBean().getUsers();
+        setUsers(this.getUserBean().getUsers());
         return "success";
     }
 
@@ -99,4 +98,15 @@ public class UserAction extends Action implements SessionAware{
         return "success";
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public ArrayList<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(ArrayList<String> users) {
+        this.users = users;
+    }
 }

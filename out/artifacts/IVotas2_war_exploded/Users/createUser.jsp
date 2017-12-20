@@ -10,16 +10,16 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>IVotas2</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
 <div>
-    <h2>New user</h2>
+    <h2> Criar Utilizador </h2>
 </div>
 
-<div>
+<div class="container-fluid">
     <s:form action="createUser" method="POST">
         Numero Cartao Cidadao: <s:textfield name="numero_cc"/>
         <br>
