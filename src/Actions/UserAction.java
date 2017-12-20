@@ -22,6 +22,9 @@ public class UserAction extends Action implements SessionAware{
     }
 
     public String login() throws Exception {
+        if (this.numero_cc == null || this.username == null || this.password == null){
+            return "error";
+        }
         this.getUserBean().setNumeroCC(this.numero_cc);
         this.getUserBean().setUsername(this.username);
         this.getUserBean().setPassword(this.password);
@@ -108,5 +111,13 @@ public class UserAction extends Action implements SessionAware{
 
     public void setUsers(ArrayList<String> users) {
         this.users = users;
+    }
+
+    public String logout() throws Exception {
+        this.session.remove("numero_cc");
+        this.session.remove("loggedIn");
+        this.session.remove("UserBean");
+        System.out.println(this.session);
+        return "success";
     }
 }

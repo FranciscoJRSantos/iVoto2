@@ -25,7 +25,7 @@
         <default-action-ref name="index" />
 
         <global-results>
-            <result name="error"> Error.jsp </result>
+            <result name="error"> WEB-INF/Error.jsp</result>
         </global-results>
 
         <global-exception-mappings>
@@ -33,25 +33,30 @@
         </global-exception-mappings>
 
         <action name="index" class="Actions.Action" method="execute">
-            <result name="success"> index.jsp </result>
+            <result name="success">index.jsp</result>
         </action>
 
         <!-- ////////////////////// TCP //////////////////////-->
 
         <action name="login" class="Actions.UserAction" method="login">
-            <result name="admin"> admin.jsp </result>
-            <result name="success"> platform.jsp </result>
-            <result name="error"> index.jsp </result>
+            <interceptor-ref name="defaultStack" />
+            <result name="admin"> WEB-INF/admin.jsp </result>
+            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="error">index.jsp</result>
+        </action>
+
+        <action name="logout" class="Actions.UserAction" method="logout">
+            <result name="success"> index.jsp </result>
         </action>
 
         <action name="loginFacebook" class="Actions.UserAction" method="loginFacebook">
-            <result name="success"> platform.jsp </result>
-            <result name="error"> index.jsp </result>
+            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="error">index.jsp</result>
         </action>
 
         <action name="vote" class="Actions.UserAction" method="vote">
-            <result name="success"> platform.jsp </result>
-            <result name="error"> Error.jsp </result>
+            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="error">WEB-INF/Error.jsp</result>
         </action>
 
         <!-- //////////////////////////// ADMIN CONSOLE //////////////////////////// -->
@@ -59,104 +64,104 @@
         <!-- Utilizador -->
 
         <action name="addUser" class="Actions.UserAction" method="execute">
-            <result name="success"> Users/createUser.jsp </result>
+            <result name="success"> WEB-INF/Users/createUser.jsp </result>
         </action>
 
         <action name="createUser" class="Actions.UserAction" method="create">
-            <result name="success"> admin.jsp </result>
-            <result name="error"> Users/createUser.jsp </result>
+            <result name="success">WEB-INF/admin.jsp</result>
+            <result name="error"> WEB-INF/Users/createUser.jsp </result>
         </action>
 
         <action name="showAllUsers" class="Actions.UserAction" method="showAll">
-            <result name="success"> Users/showAll.jsp </result>
+            <result name="success"> WEB-INF/Users/showAll.jsp </result>
 
         </action>
 
         <action name="showUserDetails" class="Actions.UserAction" method="show">
-            <result name="success"> Users/readUser.jsp </result>
+            <result name="success"> WEB-INF/Users/readUser.jsp </result>
         </action>
 
         <action name="updateUser" class="Actions.UserAction" method="show">
-            <result name="success"> admin.jsp </result>
+            <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> showUserDetails.action </result>
         </action>
 
         <action name="deleteUser" class="Actions.UserAction" method="show">
-            <result name="success"> admin.jsp </result>
+            <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> showUserDetails.action </result>
         </action>
 
         <!-- Unidade Organica -->
         <action name="addUO" class="Actions.UnidadeOrganicaAction" method="execute">
-            <result name="success"> UnidadesOrganicas/createUO.jsp </result>
+            <result name="success"> WEB-INF/UnidadesOrganicas/createUO.jsp </result>
         </action>
 
         <action name="createUO" class="Actions.UnidadeOrganicaAction" method="create">
-            <result name="success"> admin.jsp </result>
-            <result name="error"> UnidadesOrganicas/createUO.jsp </result>
+            <result name="success">WEB-INF/admin.jsp</result>
+            <result name="error"> WEB-INF/UnidadesOrganicas/createUO.jsp </result>
         </action>
 
         <action name="showAllUO" class="Actions.UnidadeOrganicaAction" method="showAll">
-            <result name="success"> UnidadesOrganicas/showAll.jsp </result>
+            <result name="success"> WEB-INF/UnidadesOrganicas/showAll.jsp </result>
         </action>
 
         <action name="showUODetails" class="Actions.UnidadeOrganicaAction" method="show">
-            <result name="success"> UnidadesOrganicas/readUO.jsp</result>
+            <result name="success"> WEB-INF/UnidadesOrganicas/readUO.jsp</result>
         </action>
 
         <action name="alterUO" class="Actions.UnidadeOrganicaAction" method="show">
-            <result name="success"> admin.jsp </result>
+            <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> showUODetails.action </result>
         </action>
         <!-- Eleicao -->
 
         <action name="addEleicao" class="Actions.EleicaoAction" method="execute">
-            <result name="success"> Elections/createElection.jsp</result>
+            <result name="success"> WEB-INF/Elections/createElection.jsp</result>
         </action>
 
         <action name="createEleicao" class="Actions.EleicaoAction" method="create">
-            <result name="success"> admin.jsp </result>
+            <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> addEleicao.action </result>
         </action>
 
         <action name="showAllEleicoes" class="Actions.EleicaoAction" method="showAll">
-            <result name="success"> Elections/showAll.jsp </result>
+            <result name="success"> WEB-INF/Elections/showAll.jsp </result>
         </action>
 
         <!-- Mesa de Voto -->
         <action name="addMesaVoto" class="Actions.MesaVotoAction" method="execute">
-            <result name="success"> MesasDeVoto/createMesaVoto.jsp </result>
+            <result name="success"> WEB-INF/MesasDeVoto/createMesaVoto.jsp </result>
         </action>
 
         <action name="createMesaVoto" class="Actions.MesaVotoAction" method="show">
-            <result name="success"> admin.jsp </result>
-            <result name="error"> MesasDeVoto/createMesaVoto.jsp </result>
+            <result name="success">WEB-INF/admin.jsp</result>
+            <result name="error"> WEB-INF/MesasDeVoto/createMesaVoto.jsp </result>
         </action>
 
         <action name="showMesaVotoDetails" class="Actions.MesaVotoAction" method="show">
-            <result name="success"> MesasDeVoto/readMesaVoto.jsp </result>
+            <result name="success"> WEB-INF/MesasDeVoto/readMesaVoto.jsp </result>
         </action>
 
         <action name="showAllMesas" class="Actions.MesaVotoAction" method="show">
-            <result name="success"> MesasDeVoto/showAll.jsp </result>
+            <result name="success"> WEB-INF/MesasDeVoto/showAll.jsp </result>
         </action>
 
         <!-- Lista -->
         <action name="addLista" class="Actions.ListaAction" method="execute">
-            <result name="success"> Listas/createLista.jsp </result>
+            <result name="success"> WEB-INF/Listas/createLista.jsp </result>
         </action>
 
         <action name="createLista" class="Actions.ListaAction" method="create">
-            <result name="success"> admin.jsp</result>
-            <result name="error"> Listas/createLista.jsp </result>
+            <result name="success">WEB-INF/admin.jsp</result>
+            <result name="error"> WEB-INF/Listas/createLista.jsp </result>
         </action>
 
         <action name="showListaDetails" class="Actions.ListaAction" method="show">
-            <result name="success"> Listas/readLista.jsp </result>
+            <result name="success"> WEB-INF/Listas/readLista.jsp </result>
         </action>
 
         <action name="showAllListas" class="Actions.ListaAction" method="showAll">
-            <result name="success"> Listas/showAll.jsp </result>
+            <result name="success"> WEB-INF/Listas/showAll.jsp </result>
         </action>
 
     </package>

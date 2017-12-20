@@ -88,6 +88,12 @@
         </s:form>
         </div>
     </div>
+
+    <div class="container-fluid">
+        <s:form action="logout" method="GET">
+            <s:submit value="Logout" class="btn btn-default"/>
+        </s:form>
+    </div>
 </div>
 </body>
 </html>
