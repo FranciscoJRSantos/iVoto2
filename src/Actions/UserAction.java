@@ -33,7 +33,7 @@ public class UserAction extends Action implements SessionAware{
     }
 
     public String login() throws Exception {
-        if (this.numero_cc == null || this.username == null || this.password == null){
+        if (this.numero_cc == null || this.username == null || this.password == null || this.numero_cc.isEmpty() || this.username.isEmpty() || this.password.isEmpty()){
             return "error";
         }
         this.getUserBean().setNumeroCC(this.numero_cc);

@@ -2,6 +2,7 @@ package Actions;
 
 import Beans.EleicaoBean;
 import Beans.UnidadeOrganicaBean;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.ArrayList;
@@ -28,9 +29,7 @@ public class EleicaoAction extends Action implements SessionAware{
         this.bean.setNome(this.nome);
         this.bean.setDescricao(this.descricao);
         this.bean.setInicio(this.inicio);
-        System.out.println(this.inicio);
         this.bean.setFim(this.fim);
-        System.out.println(this.fim);
         this.bean.setTipo(this.tipo);
         this.bean.setUnidadeOrganica(this.unidade_organica_nome);
         if(this.bean.createEleicao()){
@@ -109,6 +108,7 @@ public class EleicaoAction extends Action implements SessionAware{
     }
 
     public ArrayList<String> getEleicaoToShow() {
+        System.out.println("OIIIIIIIIIIII");
         EleicaoBean bean = new EleicaoBean();
         bean.setToShowID(this.toShowID);
         eleicaoToShow = bean.getEleicaoToShow();
@@ -116,6 +116,19 @@ public class EleicaoAction extends Action implements SessionAware{
     }
 
     public void setToShowID(Integer toShowID) {
+        System.out.println("ENTAO???");
         this.toShowID = toShowID;
+    }
+
+    public String updateEleicao() throws Exception {
+        String paramValue = ServletActionContext.getRequest().getParameter("toShowID");
+        this.bean = new EleicaoBean();
+        this.bean.setNome(this.nome);
+        this.bean.setDescricao(this.descricao);
+        this.bean.setInicio(this.inicio);
+        this.bean.setFim(this.fim);
+        this.bean.setTipo(this.tipo);
+        this.bean.setUnidadeOrganica(this.unidade_organica_nome);
+        return "success";
     }
 }

@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
         <br>
-        <a href="<s:url action="showEleicaoDetails"/>?eleicaoToShow=${eleicoes_id[i.index]}">  Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]} </a>
+        <a href="<s:url action="showEleicaoDetails"/>?toShowID=${eleicoes_id[i.index]}">  Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]} </a>
         <br>
     </c:forEach>
 </div>
