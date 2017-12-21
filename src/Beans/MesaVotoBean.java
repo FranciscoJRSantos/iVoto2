@@ -20,4 +20,16 @@ public class MesaVotoBean extends Bean{
         }
         return true;
     }
+
+    public void setNumero_cc(Integer numero_cc) {
+        this.numero_cc = numero_cc;
+    }
+
+    public void setEleicao(Integer eleicao) {
+        this.eleicao = eleicao;
+    }
+
+    public void setUnidade_organica(String unidade_organica) {
+        this.unidade_organica = unidade_organica;
+    }
 }

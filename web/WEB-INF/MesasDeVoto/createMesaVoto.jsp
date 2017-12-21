@@ -17,28 +17,25 @@
 <body>
 <h2> Criar Mesa de Voto </h2>
 <div class="container-fluid">
-    Unidade Organica:
-    <select name="unidade_organica">
-        <c:forEach items="${unidades_organicas}" var="uo">
-            <option value="${uo}"> ${uo}</option>
-        </c:forEach>
-    </select>
-    <br>
-    Eleicao:
-    <select name="eleicao_id">
-        <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
-            <option value="${eleicoes_id[i.index]}">Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]}</option>
-        </c:forEach>
-    </select>
-    <br>
-    Primeiro Utilizador na Mesa:
-    <select name="numero_cc">
-        <c:forEach items="${utilizadores}" var="item" step="2" varStatus="i">
-           <!-- <option value="${item[i.index]}"> Numero_CC: "${item[i.index]}" Nome: "${item[i.index+1]}" </option> -->
-        </c:forEach>
-    </select>
-    <br>
-    <s:submit value="Criar Mesa de Voto" class="btn btn-default"/>
+    <s:form action="createMesaVoto" method="POST">
+        Unidade Organica:
+        <select name="unidade_organica">
+            <c:forEach items="${unidades_organicas}" var="uo">
+                <option value="${uo}"> ${uo}</option>
+            </c:forEach>
+        </select>
+        <br>
+        Eleicao:
+        <select name="eleicao_id">
+            <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
+                <option value="${eleicoes_id[i.index]}">Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]}</option>
+            </c:forEach>
+        </select>
+        <br>
+        Numero do Cartao de Cidadão do Primeiro Utilizador na Mesa: <s:textfield name="numero_cc"/>
+        <br>
+        <s:submit value="Criar Mesa de Voto" class="btn btn-default"/>
+    </s:form>
 </div>
 
 </body>

@@ -142,7 +142,7 @@
             <result name="success"> WEB-INF/MesasDeVoto/createMesaVoto.jsp </result>
         </action>
 
-        <action name="createMesaVoto" class="Actions.MesaVotoAction" method="show">
+        <action name="createMesaVoto" class="Actions.MesaVotoAction" method="create">
             <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> WEB-INF/MesasDeVoto/createMesaVoto.jsp </result>
         </action>
