@@ -45,12 +45,7 @@ public class EleicaoBean extends Bean {
     }
 
     public boolean updateEleicao(){
-        try{
-            return this.server.updateEleicao(this.nome,this.inicio,this.fim,this.descricao,this.tipo,this.unidade_organica);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return this.server.updateEleicao(this.nome,this.inicio,this.fim,this.descricao,this.tipo,this.unidade_organica);
     }
 
     public void setDescricao(String descricao) {

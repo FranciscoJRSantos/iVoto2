@@ -516,6 +516,11 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     }
 
+    @Override
+    public boolean updateEleicao(String nome, String inicio, String fim, String descricao, Integer tipo, String unidade_organica) {
+        return false;
+    }
+
     public String vote(int cc, String lista, int eleicao_id, int mesavoto_id) throws RemoteException{
 
         String toClient = null;
