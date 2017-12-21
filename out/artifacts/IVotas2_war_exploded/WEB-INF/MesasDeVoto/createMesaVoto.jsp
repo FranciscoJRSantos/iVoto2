@@ -26,19 +26,15 @@
     <br>
     Eleicao:
     <select name="eleicao_id">
-        <c:forEach items="${eleicoes_id}" var="eleicao_id">
-            <c:forEach items="${eleicoes_local}" var="local">
-                <c:forEach items="${eleicoes_titulo}" var="titulo">
-                    <option value="${eleicao_id}">Eleicao: ${titulo} Local: ${local}</option>
-                </c:forEach>
-            </c:forEach>
+        <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
+            <option value="${eleicoes_id[i.index]}">Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]}</option>
         </c:forEach>
     </select>
     <br>
     Primeiro Utilizador na Mesa:
     <select name="numero_cc">
         <c:forEach items="${utilizadores}" var="item" step="2" varStatus="i">
-            <option value="${item[i.index]}"> Numero_CC: "${item[i.index]}" Nome: "${item[i.index+1]}" </option>
+           <!-- <option value="${item[i.index]}"> Numero_CC: "${item[i.index]}" Nome: "${item[i.index+1]}" </option> -->
         </c:forEach>
     </select>
     <br>

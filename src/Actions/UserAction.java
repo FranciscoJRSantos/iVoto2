@@ -1,6 +1,9 @@
 package Actions;
 
+import Beans.EleicaoBean;
+import Beans.ListaBean;
 import Beans.UserBean;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.ArrayList;
@@ -16,6 +19,14 @@ public class UserAction extends Action implements SessionAware{
     private String contacto;
     private String tipo;
     private String unidade_organica;
+    private ArrayList<ArrayList<String>> eleicoes;
+    private ArrayList<String> eleicoes_id;
+    private ArrayList<String> eleicoes_titulo;
+    private ArrayList<String> eleicoes_local;
+    private ArrayList<String> listas;
+    private String eleicaoToVote;
+    private String listaToVote;
+
 
     public String loginFacebook() throws Exception {
         return "success";
@@ -98,6 +109,9 @@ public class UserAction extends Action implements SessionAware{
     }
 
     public String vote() throws Exception {
+        if (this.eleicaoToVote == null || this.listaToVote == null){
+            return "error";
+        }
         return "success";
     }
 
@@ -117,7 +131,52 @@ public class UserAction extends Action implements SessionAware{
         this.session.remove("numero_cc");
         this.session.remove("loggedIn");
         this.session.remove("UserBean");
-        System.out.println(this.session);
+        return "success";
+    }
+
+    public ArrayList<ArrayList<String>> getEleicoes() {
+        return new EleicaoBean().getEleicoesDecorrer();
+    }
+
+    public ArrayList<String> getEleicoes_id() {
+        this.eleicoes = new EleicaoBean().getEleicoesDecorrer();
+        this.eleicoes_id = this.eleicoes.get(0);
+        return eleicoes_id;
+    }
+
+    public ArrayList<String> getEleicoes_titulo() {
+        this.eleicoes = new EleicaoBean().getEleicoesDecorrer();
+        this.eleicoes_titulo = this.eleicoes.get(1);
+        return eleicoes_titulo;
+    }
+
+    public ArrayList<String> getEleicoes_local() {
+        this.eleicoes = new EleicaoBean().getEleicoesDecorrer();
+        this.eleicoes_local = this.eleicoes.get(2);
+        return eleicoes_local;
+    }
+
+    public ArrayList<String> getListas() {
+        String paramValue = ServletActionContext.getRequest().getParameter("eleicaoToVote");
+        ListaBean bean = new ListaBean();
+        bean.setEleicao_ID(Integer.parseInt(this.eleicaoToVote));
+        this.listas = bean.getListasFromEleicao();
+        return listas;
+    }
+
+    public void setListaToVote(String listaToVote) {
+        this.listaToVote = listaToVote;
+    }
+
+    public String getEleicaoToVote() {
+        return this.eleicaoToVote;
+    }
+
+    public void setEleicaoToVote(String eleicaoToVote) {
+        this.eleicaoToVote = eleicaoToVote;
+    }
+
+    public String showListas() throws Exception {
         return "success";
     }
 }

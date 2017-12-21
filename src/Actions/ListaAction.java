@@ -54,19 +54,19 @@ public class ListaAction extends Action{
     }
 
     public ArrayList<String> getEleicoes_id() {
-        this.eleicoes = new EleicaoBean().getEleicoes();
+        this.eleicoes = new EleicaoBean().getEleicoesFuturas();
         this.eleicoes_id = this.eleicoes.get(0);
         return eleicoes_id;
     }
 
     public ArrayList<String> getEleicoes_titulo() {
-        this.eleicoes = new EleicaoBean().getEleicoes();
+        this.eleicoes = new EleicaoBean().getEleicoesFuturas();
         this.eleicoes_titulo = this.eleicoes.get(1);
         return eleicoes_titulo;
     }
 
     public ArrayList<String> getEleicoes_local() {
-        this.eleicoes = new EleicaoBean().getEleicoes();
+        this.eleicoes = new EleicaoBean().getEleicoesFuturas();
         this.eleicoes_local = this.eleicoes.get(2);
         return eleicoes_local;
     }

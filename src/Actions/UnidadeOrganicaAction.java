@@ -13,6 +13,9 @@ public class UnidadeOrganicaAction extends Action implements SessionAware{
 
     public String create() throws Exception {
         this.bean = new UnidadeOrganicaBean();
+        if (this.nome == null && this.pertence == null){
+            return "error";
+        }
         this.bean.setNome(this.nome);
         this.bean.setPertence(this.pertence);
         if(this.bean.createUnidadeOrganica()){

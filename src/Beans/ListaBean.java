@@ -1,6 +1,7 @@
 package Beans;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class ListaBean extends Bean{
 
@@ -8,6 +9,7 @@ public class ListaBean extends Bean{
     private Integer eleicao_id;
     private Integer numero_cc;
     private Integer tipo;
+    private ArrayList<String> listasFromEleicao;
 
     public void setEleicao_ID(Integer eleicao_id) {
         this.eleicao_id = eleicao_id;
@@ -34,4 +36,14 @@ public class ListaBean extends Bean{
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
+
+    public ArrayList<String> getListasFromEleicao() {
+        try {
+            return this.server.showListsFromElection(this.eleicao_id);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

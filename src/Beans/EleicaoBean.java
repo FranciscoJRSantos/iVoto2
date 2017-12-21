@@ -13,9 +13,20 @@ public class EleicaoBean extends Bean {
     private Integer tipo;
     private String unidade_organica;
 
-    public ArrayList<ArrayList<String>> getEleicoes() {
+    public EleicaoBean() { super(); }
+
+    public ArrayList<ArrayList<String>> getEleicoesFuturas() {
         try {
             this.eleicoes = server.showEleicoesFuturas();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return eleicoes;
+    }
+
+    public ArrayList<ArrayList<String>> getEleicoesDecorrer() {
+        try {
+            this.eleicoes = server.showEleicoesDecorrer();
         } catch (RemoteException e) {
             e.printStackTrace();
         }

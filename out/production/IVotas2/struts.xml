@@ -54,10 +54,15 @@
             <result name="error">index.jsp</result>
         </action>
 
+        <action name="showListsFromElection" class="Actions.UserAction" method="showListas">
+            <result name="success"> WEB-INF/lists.jsp </result>
+        </action>
+
         <action name="vote" class="Actions.UserAction" method="vote">
             <result name="success">WEB-INF/platform.jsp</result>
             <result name="error">WEB-INF/Error.jsp</result>
         </action>
+
 
         <!-- //////////////////////////// ADMIN CONSOLE //////////////////////////// -->
 
@@ -122,6 +127,10 @@
         <action name="createEleicao" class="Actions.EleicaoAction" method="create">
             <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> addEleicao.action </result>
+        </action>
+
+        <action name="showEleicaoDetails" class="Actions.EleicaoAction" method="show">
+            <result name="success"> WEB-INF/Elections/readElection.jsp </result>
         </action>
 
         <action name="showAllEleicoes" class="Actions.EleicaoAction" method="showAll">

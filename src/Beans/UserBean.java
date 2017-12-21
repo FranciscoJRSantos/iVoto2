@@ -15,6 +15,7 @@ public class UserBean extends Bean{
     private String validade_cc;
     private Integer tipo;
     private String un_org_nome;
+    private Integer eleicao_id;
 
     public UserBean(){
         super();
@@ -87,4 +88,16 @@ public class UserBean extends Bean{
         return this.utilizadores;
     }
 
+    public ArrayList<String> pickListasFromEleicao() {
+        try {
+            return this.server.showListsFromElection(this.eleicao_id);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setEleicao_id(Integer eleicao_id) {
+        this.eleicao_id = eleicao_id;
+    }
 }

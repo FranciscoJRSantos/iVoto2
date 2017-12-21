@@ -41,5 +41,6 @@
     <orderEntry type="library" name="mysql-connector-java-5.1.42-bin" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 8.5.24" level="application_server_libraries" />
     <orderEntry type="library" name="slf4j-api-1.7.13" level="project" />
+    <orderEntry type="library" name="jquery" level="application" />
   </component>
 </module>
