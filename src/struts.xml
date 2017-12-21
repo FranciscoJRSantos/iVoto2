@@ -60,7 +60,7 @@
 
         <action name="vote" class="Actions.UserAction" method="vote">
             <result name="success">WEB-INF/platform.jsp</result>
-            <result name="error">WEB-INF/Error.jsp</result>
+            <result name="error">WEB-INF/platform.jsp</result>
         </action>
 
 

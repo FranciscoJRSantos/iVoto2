@@ -11,6 +11,9 @@ public class ListaBean extends Bean{
     private Integer tipo;
     private ArrayList<String> listasFromEleicao;
 
+    public ListaBean() { super(); }
+
+
     public void setEleicao_ID(Integer eleicao_id) {
         this.eleicao_id = eleicao_id;
     }

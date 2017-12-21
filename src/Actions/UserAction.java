@@ -109,9 +109,12 @@ public class UserAction extends Action implements SessionAware{
     }
 
     public String vote() throws Exception {
-        if (this.eleicaoToVote == null || this.listaToVote == null){
+        System.out.println(this.listaToVote);
+        if (this.getUserBean().getEleicao_id() == null){
             return "error";
         }
+        this.getUserBean().setLista(this.listaToVote);
+        this.getUserBean().vote();
         return "success";
     }
 
@@ -160,6 +163,7 @@ public class UserAction extends Action implements SessionAware{
         String paramValue = ServletActionContext.getRequest().getParameter("eleicaoToVote");
         ListaBean bean = new ListaBean();
         bean.setEleicao_ID(Integer.parseInt(this.eleicaoToVote));
+        this.getUserBean().setEleicao_id(Integer.parseInt(this.eleicaoToVote));
         this.listas = bean.getListasFromEleicao();
         return listas;
     }

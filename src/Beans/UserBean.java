@@ -16,6 +16,7 @@ public class UserBean extends Bean{
     private Integer tipo;
     private String un_org_nome;
     private Integer eleicao_id;
+    private String lista;
 
     public UserBean(){
         super();
@@ -99,5 +100,23 @@ public class UserBean extends Bean{
 
     public void setEleicao_id(Integer eleicao_id) {
         this.eleicao_id = eleicao_id;
+    }
+
+    public void setLista(String lista) {
+        this.lista = lista;
+    }
+
+    public boolean vote(){
+        try {
+            this.server.anticipatedVote(this.numero_cc,this.lista,this.eleicao_id,this.password);
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Integer getEleicao_id() {
+        return eleicao_id;
     }
 }
