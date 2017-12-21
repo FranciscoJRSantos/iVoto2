@@ -3,6 +3,14 @@ package Actions;
 import Beans.EleicaoBean;
 import Beans.ListaBean;
 import Beans.UserBean;
+import Beans.FacebookApi2;      //not sure if it will keep being a bean
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Token;
+import com.github.scribejava.core.model.Verb;
+import com.github.scribejava.core.model.Verifier;
+import com.github.scribejava.core.oauth.OAuthService;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -29,6 +37,20 @@ public class UserAction extends Action implements SessionAware{
 
 
     public String loginFacebook() throws Exception {
+        OAuthService service = new ServiceBuilder()
+                .provider(FacebookApi2.class)
+                .apiKey("157491105017602")
+                .apiSecret("798b13e2014862882190ab49d5cebd0f")
+                .callback("http://localhost:8080/loginFacebook.action")
+                .scope("publish_actions")
+                .build();
+        String paramValue = ServletActionContext.getRequest().getParameter("code");
+        Verifier v = new Verifier(paramValue);
+        Token accessToken = service.getAccessToken(null, v);
+        OAuthRequest request = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me", service);
+        service.signRequest(accessToken, request);
+        Response response = request.send();
+        System.out.println(response.getBody());
         return "success";
     }
 
