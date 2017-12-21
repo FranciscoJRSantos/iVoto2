@@ -12,6 +12,8 @@ public class EleicaoBean extends Bean {
     private String fim;
     private Integer tipo;
     private String unidade_organica;
+    private Integer toShowID;
+    private ArrayList<String> eleicaoToShow;
 
     public EleicaoBean() { super(); }
 
@@ -64,5 +66,22 @@ public class EleicaoBean extends Bean {
 
     public void setUnidadeOrganica(String unidade_organica) {
         this.unidade_organica= unidade_organica;
+    }
+
+    public ArrayList<String> getEleicaoToShow() {
+        try {
+            return this.eleicaoToShow = this.server.showEleicao(this.toShowID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setToShowID(Integer toShowID) {
+        this.toShowID = toShowID;
+    }
+
+    public void setEleicaoToShow(ArrayList<String> eleicaoToShow) {
+        this.eleicaoToShow = eleicaoToShow;
     }
 }

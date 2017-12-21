@@ -16,6 +16,12 @@ public class EleicaoAction extends Action implements SessionAware{
     private String unidade_organica_nome;
     private EleicaoBean bean;
     private ArrayList<String> unidades_organicas;
+    private ArrayList<ArrayList<String>> eleicoes;
+    private ArrayList<String> eleicoes_id;
+    private ArrayList<String> eleicoes_titulo;
+    private ArrayList<String> eleicoes_local;
+    private ArrayList<String> eleicaoToShow;
+    private Integer toShowID;
 
     public String create() throws Exception {
         this.bean = new EleicaoBean();
@@ -77,5 +83,39 @@ public class EleicaoAction extends Action implements SessionAware{
 
     public void setUnidade_organica_nome(String unidade_organica_nome) {
         this.unidade_organica_nome = unidade_organica_nome;
+    }
+
+    public ArrayList<String> getEleicoes_id() {
+        this.eleicoes = new EleicaoBean().getEleicoesFuturas();
+        this.eleicoes_id = this.eleicoes.get(0);
+        return eleicoes_id;
+    }
+
+    public ArrayList<String> getEleicoes_titulo() {
+        this.eleicoes = new EleicaoBean().getEleicoesFuturas();
+        this.eleicoes_titulo = this.eleicoes.get(1);
+        return eleicoes_titulo;
+    }
+
+    public ArrayList<String> getEleicoes_local() {
+        this.eleicoes = new EleicaoBean().getEleicoesFuturas();
+        this.eleicoes_local = this.eleicoes.get(2);
+        return eleicoes_local;
+    }
+
+    public ArrayList<ArrayList<String>> getEleicoes() {
+        this.eleicoes = new EleicaoBean().getEleicoesFuturas();
+        return this.eleicoes;
+    }
+
+    public ArrayList<String> getEleicaoToShow() {
+        EleicaoBean bean = new EleicaoBean();
+        bean.setToShowID(this.toShowID);
+        eleicaoToShow = bean.getEleicaoToShow();
+        return eleicaoToShow;
+    }
+
+    public void setToShowID(Integer toShowID) {
+        this.toShowID = toShowID;
     }
 }
