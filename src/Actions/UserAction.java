@@ -57,8 +57,40 @@ public class UserAction extends Action implements SessionAware{
         JSONObject json = (JSONObject) (new JSONParser().parse(response.getBody()));
         facebookID = (String) json.get("id");
         this.getUserBean().setFacebookID(this.facebookID);
-        if(this.getUserBean().checkFacebookID() != -1){
+        Integer aux = this.getUserBean().checkFacebookID();
+        if(aux != null){
+            session.put("numero_cc", Integer.toString(aux));
+            session.put("facebookID", this.facebookID);
+            session.put("loggedIn",true);
             return "success";
+        }
+        return "error";
+    }
+
+    public String linkFacebook() throws Exception{
+        OAuthService service = new ServiceBuilder()
+                .provider(FacebookApi2.class)
+                .apiKey("157491105017602")
+                .apiSecret("798b13e2014862882190ab49d5cebd0f")
+                .callback("http://localhost:8080/linkFacebook.action")
+                .scope("publish_actions")
+                .build();
+        String paramValue = ServletActionContext.getRequest().getParameter("code");
+        Verifier v = new Verifier(paramValue);
+        Token accessToken = service.getAccessToken(null, v);
+        System.out.println(accessToken.getToken());
+        OAuthRequest request = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me", service);
+        service.signRequest(accessToken, request);
+        Response response = request.send();
+        JSONObject json = (JSONObject) (new JSONParser().parse(response.getBody()));
+        facebookID = (String) json.get("id");
+        this.getUserBean().setFacebookID(this.facebookID);
+        Integer aux = this.getUserBean().checkFacebookID();
+        if (aux == null){
+            if (this.getUserBean().linkAccount()) {
+                session.put("facebookID", this.facebookID);
+                return "success";
+            }
         }
         return "error";
     }

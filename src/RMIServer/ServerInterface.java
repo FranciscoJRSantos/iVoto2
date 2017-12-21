@@ -37,6 +37,7 @@ public interface ServerInterface extends Remote{
     public boolean updateUnidadeOrganica(String nome, String novo_nome, int flag) throws RemoteException;
     public boolean updateMesaVotoUtilizadores(int numero_cc, int mesa_voto_numero, int id_eleicao) throws RemoteException;
     //public boolean updateEleicao(String nome, String inicio, String fim, String descricao, Integer tipo, String unidade_organica);
+    public boolean linkFacebook(Integer cc, String id) throws RemoteException;
     // Delete
     public boolean deleteUtilizador(int numero_cc) throws RemoteException;
     public boolean deleteUO(String nome) throws RemoteException;
@@ -46,5 +47,6 @@ public interface ServerInterface extends Remote{
     public String checkCC(int numero_cc, int eleicao_id) throws RemoteException;
     public boolean checkLogin(int numero_cc, String nome, String password_hashed) throws RemoteException;
     public boolean isConnected() throws RemoteException;
+    public Integer findFacebookID(String id) throws RemoteException;
 
 }

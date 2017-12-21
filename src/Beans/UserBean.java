@@ -33,7 +33,21 @@ public class UserBean extends Bean{
     }
 
     public Integer checkFacebookID(){
-        return -1;
+        try {
+            return this.server.findFacebookID(this.facebookID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean linkAccount(){
+        try {
+            return this.server.linkFacebook(this.numero_cc, this.facebookID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean createUser(){

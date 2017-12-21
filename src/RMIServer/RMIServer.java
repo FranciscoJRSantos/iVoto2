@@ -593,6 +593,13 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         }
         return toClient;
     }
+
+
+    public boolean linkFacebook(Integer cc, String id) throws RemoteException {
+        String sql = "UPDATE utilizador SET facebookID='" + id + "' WHERE numero_cc='" + cc + "';";
+        database.submitUpdate(sql);
+        return true;
+    }
     // Delete
 
     public boolean deleteUtilizador(int numero_cc) throws RemoteException{
@@ -631,6 +638,14 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public boolean isConnected() throws RemoteException{
         return true;
+    }
+
+    public Integer findFacebookID(String id) throws RemoteException {
+        String sql = "SELECT numero_cc FROM utilizador WHERE facebookID ='" + id + "';";
+        ArrayList<String> user_data = database.submitQuery(sql);
+
+        if (user_data.isEmpty()) return null;
+        else return Integer.parseInt(user_data.get(0));
     }
 
     public boolean checkLogin(int numero_cc, String nome, String password_hashed) throws RemoteException{

@@ -18,6 +18,9 @@
 </head>
 <body>
 <div class="container-fluid">
+    <div>
+        <p>You are logged in as <s:property value="%{#session.numero_cc}"/></p>
+    </div>
     <h2> Eleições a decorrer </h2>
     <div class="eleicoes">
             <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
@@ -31,6 +34,14 @@
         <s:form action="logout" method="GET">
             <s:submit value="Logout" class="btn btn-default"/>
         </s:form>
+    </div>
+    <div>
+        <s:if test="%{#session.facebookID!=null}">
+            <button type="submit"class="btn btn-default" onclick="location.href='https://www.facebook.com/v2.2/dialog/oauth?client_id=157491105017602&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FlinkFacebook.action&scope=publish_actions'">Link Account with Facebook</button>
+        </s:if>
+        <s:else>
+            <p>Your account is linked to the Facebook Account ID <s:property value="%{#session.facebookID}"/> </p>
+        </s:else>
     </div>
 </div>
 </body>
