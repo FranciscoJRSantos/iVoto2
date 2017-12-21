@@ -16,7 +16,7 @@
 <div class="container-fluid">
     <s:form action="updateEleicao" method="POST">
         <c:forEach items="${eleicaoToShow}" var="eleicao_data">
-            ${eleicao_data}:
+            <s:textfield name="${eleicao_data}" value="${eleicao_data}"/>
         </c:forEach>
     </s:form>
 </div>
