@@ -50,8 +50,9 @@
         </action>
 
         <action name="loginFacebook" class="Actions.UserAction" method="loginFacebook">
+            <interceptor-ref name="defaultStack" />
             <result name="success">WEB-INF/platform.jsp</result>
-            <result name="error">index.jsp</result>
+            <result name="error">WEB-INF/facebookError.jsp</result>
         </action>
 
         <action name="showListsFromElection" class="Actions.UserAction" method="showListas">

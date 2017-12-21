@@ -34,6 +34,7 @@
 
 <div class="container-fluid">
     <h2> Login with Facebook</h2>
+    <button type="submit"class="btn btn-default" onclick="location.href='https://www.facebook.com/v2.2/dialog/oauth?client_id=157491105017602&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FloginFacebook.action&scope=publish_actions'">Login with Facebook</button>
 </div>
 </body>
 </html>

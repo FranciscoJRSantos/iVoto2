@@ -13,6 +13,8 @@ import com.github.scribejava.core.model.Verifier;
 import com.github.scribejava.core.oauth.OAuthService;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,7 @@ public class UserAction extends Action implements SessionAware{
     private String numero_cc = null;
     private String username = null;
     private String password = null;
+    private String facebookID = null;
     private ArrayList<String> users = null;
     private String validade_cc;
     private String morada;
@@ -47,11 +50,17 @@ public class UserAction extends Action implements SessionAware{
         String paramValue = ServletActionContext.getRequest().getParameter("code");
         Verifier v = new Verifier(paramValue);
         Token accessToken = service.getAccessToken(null, v);
+        System.out.println(accessToken.getToken());
         OAuthRequest request = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me", service);
         service.signRequest(accessToken, request);
         Response response = request.send();
-        System.out.println(response.getBody());
-        return "success";
+        JSONObject json = (JSONObject) (new JSONParser().parse(response.getBody()));
+        facebookID = (String) json.get("id");
+        this.getUserBean().setFacebookID(this.facebookID);
+        if(this.getUserBean().checkFacebookID() != -1){
+            return "success";
+        }
+        return "error";
     }
 
     public String login() throws Exception {

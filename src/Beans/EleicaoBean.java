@@ -43,7 +43,7 @@ public class EleicaoBean extends Bean {
         }
         return false;
     }
-    
+
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;

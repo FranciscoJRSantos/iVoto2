@@ -8,6 +8,7 @@ public class UserBean extends Bean{
     private Integer numero_cc = null;
     private String username = null;
     private String password = null;
+    private String facebookID = null;
     private ArrayList<ArrayList<String>> eleicoes = null;
     private ArrayList<String> utilizadores = null;
     private String morada;
@@ -31,6 +32,10 @@ public class UserBean extends Bean{
         return false;
     }
 
+    public Integer checkFacebookID(){
+        return -1;
+    }
+
     public boolean createUser(){
         try {
             return this.server.createUser(this.numero_cc,this.username ,this.password,this.morada, this.contacto, this.validade_cc, this.tipo, this.un_org_nome);
@@ -38,6 +43,10 @@ public class UserBean extends Bean{
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void setFacebookID(String facebookID) {
+        this.facebookID = facebookID;
     }
 
     public void setNumeroCC(String numeroCC) {
