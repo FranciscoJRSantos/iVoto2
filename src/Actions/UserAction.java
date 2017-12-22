@@ -106,6 +106,7 @@ public class UserAction extends Action implements SessionAware {
 
     public String unlinkFacebook() {
         this.getUserBean().setFacebookID(null);
+        this.getUserBean().setNumeroCC((String)session.get("numero_cc"));
         if (this.getUserBean().unlinkAccount()) {
             this.session.remove("facebookID");
             return "success";
@@ -123,12 +124,12 @@ public class UserAction extends Action implements SessionAware {
         this.getUserBean().setPassword(this.password);
         if (this.numero_cc.equals("0") && this.username.equals("admin") && this.password.equals("secret")) {
             if (this.getUserBean() != null) {
-                session.put("numero_cc", this.username);
+                session.put("numero_cc", this.numero_cc);
                 session.put("loggedIn", true);
                 return "admin";
             }
         } else if (this.getUserBean().tryLogin()) {
-            session.put("numero_cc", this.username);
+            session.put("numero_cc", this.numero_cc);
             this.facebookID = this.getUserBean().getFacebookID();
             this.getUserBean().setFacebookID(this.facebookID);
             session.put("facebookID", this.facebookID);
