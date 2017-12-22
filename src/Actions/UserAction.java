@@ -253,13 +253,42 @@ public class UserAction extends Action implements SessionAware {
         return "success";
     }
 
-    public String vote() throws Exception {
-        System.out.println(this.listaToVote);
+    public String vote(){
         if (this.getUserBean().getEleicao_id() == null) {
             return "error";
         }
         this.getUserBean().setLista(this.listaToVote);
-        this.getUserBean().vote();
+        if(this.getUserBean().vote()!=null) return "success";
+        return "error";
+    }
+
+    public String postVote(){
+        Integer id = this.getUserBean().getEleicao_id();
+        if (id == null) {
+            return "error";
+        }
+        OAuthService service = new ServiceBuilder()
+                .provider(FacebookApi2.class)
+                .apiKey("157491105017602")
+                .apiSecret("798b13e2014862882190ab49d5cebd0f")
+                .scope("publish_actions")
+                .build();
+        String election_url = "http://localhost:8080/showListsFromElection.action?eleicaoToVote=" + id;
+        Token token = (Token) session.get("accessToken");
+        OAuthRequest request = new OAuthRequest(Verb.POST, "https://graph.facebook.com/me/feed", service);
+        request.addBodyParameter("message", "I've just voted on this election: " + election_url);
+        service.signRequest(token, request);
+        Response response = request.send();
+        JSONObject json = null;
+        try {
+            json = (JSONObject) (new JSONParser().parse(response.getBody()));
+        } catch (ParseException e) {
+            return "error";
+        }
+        post_id = (String) json.get("id");
+        if(post_id == null){
+            return "error";
+        }
         return "success";
     }
 
@@ -302,6 +331,7 @@ public class UserAction extends Action implements SessionAware {
                 f_lo.add(aux_lo.get(i));
             }
         }
+        this.getUserBean().setEleicao_id(null);
         ArrayList<ArrayList<String>> f = new ArrayList<ArrayList<String>>();
         f.add(f_id);
         f.add(f_ti);
@@ -332,6 +362,8 @@ public class UserAction extends Action implements SessionAware {
         this.getUserBean().setEleicao_id(Integer.parseInt(this.eleicaoToVote));
         this.listas = bean.getListasFromEleicao();
         return listas;
+
+
     }
 
     public void setListaToVote(String listaToVote) {

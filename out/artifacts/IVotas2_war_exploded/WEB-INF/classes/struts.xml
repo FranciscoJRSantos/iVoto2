@@ -74,10 +74,13 @@
         </action>
 
         <action name="vote" class="Actions.UserAction" method="vote">
-            <result name="success" type="redirectAction">showPlatform</result>
-            <result name="error">WEB-INF/platform.jsp</result>
+            <result name="success" type="chain">postVote</result>
+            <result name="error">WEB-INF/votingFailed.jsp</result>
         </action>
-
+        <action name="postVote" class="Actions.UserAction" method="postVote">
+            <result name="success">WEB-INF/Facebook/facebookPostSuccessful.jsp</result>
+            <result name="error"> WEB-INF/Facebook/facebookPostFailed.jsp</result>
+        </action>
         <action name="postElectionFacebook" class="Actions.UserAction" method="postElectionFacebook">
             <result name="success">WEB-INF/Facebook/facebookPostSuccessful.jsp</result>
             <result name="error"> WEB-INF/Facebook/facebookPostFailed.jsp</result>

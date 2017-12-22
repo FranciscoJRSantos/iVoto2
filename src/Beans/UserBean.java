@@ -182,14 +182,13 @@ public class UserBean extends Bean{
         this.lista = lista;
     }
 
-    public boolean vote(){
+    public String vote(){
         try {
-            this.server.anticipatedVote(this.numero_cc,this.lista,this.eleicao_id,this.password);
-            return true;
+            return this.server.anticipatedVote(this.numero_cc,this.lista,this.eleicao_id,this.password);
         } catch (RemoteException e) {
             e.printStackTrace();
-            return false;
         }
+        return null;
     }
 
     public Integer getEleicao_id() {

@@ -339,7 +339,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
     public ArrayList<String> showListsFromElection(int eleicao_id) throws RemoteException{
 
         ArrayList<String> lists;
-        String sql_get_lists = "SELECT nome FROM lista WHERE eleicao_id='" + eleicao_id + "' AND tipo_utilizador != 0;";
+        String sql_get_lists = "SELECT nome FROM lista WHERE eleicao_id='" + eleicao_id + "' AND nome NOT LIKE 'Blank' AND nome NOT LIKE 'Null'";
 
         lists = database.submitQuery(sql_get_lists);
 
