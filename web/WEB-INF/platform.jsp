@@ -24,7 +24,7 @@
     </div>
     <h2> Eleições a decorrer </h2>
     <div class="eleicoes">
-        <s:if test="eleicoes!=null">
+        <s:if test="eleicoes_id.size>0">
             <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
                 <br>
                 <a href="<s:url action="showListsFromElection"/>?eleicaoToVote=${eleicoes_id[i.index]}">

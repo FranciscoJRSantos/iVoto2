@@ -11,7 +11,6 @@ import com.github.scribejava.core.model.Token;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.model.Verifier;
 import com.github.scribejava.core.oauth.OAuthService;
-import org.apache.commons.codec.language.SoundexTest;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.json.simple.JSONObject;
@@ -286,7 +285,28 @@ public class UserAction extends Action implements SessionAware {
     }
 
     public ArrayList<ArrayList<String>> loadEleicoes() {
-        return new EleicaoBean().getEleicoesDecorrer();
+        ArrayList<String> f_id = new ArrayList<String>();
+        ArrayList<String> f_ti = new ArrayList<String>();
+        ArrayList<String> f_lo = new ArrayList<String>();
+        ArrayList<ArrayList<String>> aux = new EleicaoBean().getEleicoesDecorrer();
+        ArrayList<String> aux_id = aux.get(0);
+        ArrayList<String> aux_ti = aux.get(1);
+        ArrayList<String> aux_lo = aux.get(2);
+        this.getUserBean().setNumeroCC((String) this.session.get("numero_cc"));
+        for (int i = 0; i <aux_id.size(); i++) {
+            String id = aux_id.get(i);
+            this.getUserBean().setEleicao_id(Integer.parseInt(id));
+            if(this.getUserBean().checkIfCanVote() != null){
+                f_id.add(aux_id.get(i));
+                f_ti.add(aux_ti.get(i));
+                f_lo.add(aux_lo.get(i));
+            }
+        }
+        ArrayList<ArrayList<String>> f = new ArrayList<ArrayList<String>>();
+        f.add(f_id);
+        f.add(f_ti);
+        f.add(f_lo);
+        return f;
     }
 
     public ArrayList<ArrayList<String>> getEleicoes() {

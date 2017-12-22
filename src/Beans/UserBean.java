@@ -34,6 +34,15 @@ public class UserBean extends Bean{
         return false;
     }
 
+    public String checkIfCanVote(){
+        try {
+            return this.server.checkCC(this.numero_cc, this.eleicao_id);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Integer checkFacebookID(){
         try {
             return this.server.findFacebookID(this.facebookID);
@@ -208,4 +217,5 @@ public class UserBean extends Bean{
             return null;
         }
     }
+
 }
