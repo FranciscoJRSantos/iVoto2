@@ -50,8 +50,19 @@
         </action>
 
         <action name="loginFacebook" class="Actions.UserAction" method="loginFacebook">
+            <interceptor-ref name="defaultStack" />
             <result name="success">WEB-INF/platform.jsp</result>
-            <result name="error">index.jsp</result>
+            <result name="error">WEB-INF/facebookError.jsp</result>
+        </action>
+
+        <action name="linkFacebook" class="Actions.UserAction" method="linkFacebook">
+            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="error">WEB-INF/facebookLinkError.jsp</result>
+        </action>
+
+        <action name="unlinkFacebook" class="Actions.UserAction" method="unlinkFacebook">
+            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="error">WEB-INF/facebookLinkError.jsp</result>
         </action>
 
         <action name="showListsFromElection" class="Actions.UserAction" method="showListas">
@@ -149,6 +160,10 @@
             <result name="success"> WEB-INF/Elections/showAllPast.jsp </result>
         </action>
 
+        <action name="postElectionFacebook" class="Actions.EleicaoAction" method="postElectionFacebook">
+            <result name="success">WEB-INF/platform.jsp</result>
+            <!--<result name="error"> showUODetails.action </result>-->
+        </action>
 
         <!-- Mesa de Voto -->
         <action name="addMesaVoto" class="Actions.MesaVotoAction" method="execute">

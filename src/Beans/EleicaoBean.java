@@ -46,6 +46,7 @@ public class EleicaoBean extends Bean {
         return false;
     }
 
+
     public boolean updateEleicao(){
         try{
             return this.server.updateEleicao(this.toShowID,this.nome,this.inicio,this.fim,this.descricao,this.tipo,this.unidade_organica);
