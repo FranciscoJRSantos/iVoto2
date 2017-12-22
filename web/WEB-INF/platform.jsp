@@ -24,19 +24,24 @@
     </div>
     <h2> Eleições a decorrer </h2>
     <div class="eleicoes">
-        <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
-            <br>
-            <a href="<s:url action="showListsFromElection"/>?eleicaoToVote=${eleicoes_id[i.index]}">
-                Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]} </a>
-            <s:if test="%{#session.facebookID!=null }">
-                <button type="submit" class="btn btn-default"
-                        onclick="location.href='<s:url
-                                action="postElectionFacebook"/>?electionID=${eleicoes_id[i.index]}'">
-                    Share this election on Facebook
-                </button>
-            </s:if>
-            <br>
-        </c:forEach>
+        <s:if test="eleicoes!=null">
+            <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
+                <br>
+                <a href="<s:url action="showListsFromElection"/>?eleicaoToVote=${eleicoes_id[i.index]}">
+                    Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]} </a>
+                <s:if test="%{#session.facebookID!=null }">
+                    <button type="submit" class="btn btn-default"
+                            onclick="location.href='<s:url
+                                    action="postElectionFacebook"/>?electionID=${eleicoes_id[i.index]}'">
+                        Share this election on Facebook
+                    </button>
+                </s:if>
+                <br>
+            </c:forEach>
+        </s:if>
+        <s:else>
+            Não há eleições disponíveis!
+        </s:else>
     </div>
     <br>
     <div class="container-fluid">
@@ -55,8 +60,10 @@
             </button>
         </s:if>
         <s:else>
-            <p>Your account is currently linked to the Facebook Account ID <s:property
-                    value="%{#session.facebookID}"/></p>
+            <p>Your account is currently linked to the Facebook Account ID <a
+                    href="http://facebook.com/<s:property value="%{#session.facebookID}"/>">
+                <s:property value="%{#session.facebookID}"/></a>
+            </p>
             <button type="submit" class="btn btn-default" onclick="location.href='/unlinkFacebook.action'">
                 Unlink Account
             </button>

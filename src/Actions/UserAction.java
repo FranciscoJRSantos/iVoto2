@@ -11,6 +11,7 @@ import com.github.scribejava.core.model.Token;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.model.Verifier;
 import com.github.scribejava.core.oauth.OAuthService;
+import org.apache.commons.codec.language.SoundexTest;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.json.simple.JSONObject;
@@ -33,9 +34,6 @@ public class UserAction extends Action implements SessionAware {
     private String unidade_organica;
     private ArrayList<ArrayList<String>> eleicoes;
     private ArrayList<ArrayList<String>> utilizadores = null;
-    private ArrayList<String> eleicoes_id;
-    private ArrayList<String> eleicoes_titulo;
-    private ArrayList<String> eleicoes_local;
     private ArrayList<String> listas;
     private ArrayList<String> cc = null;
     private ArrayList<String> nome = null;
@@ -44,6 +42,7 @@ public class UserAction extends Action implements SessionAware {
     private String userToShow;
     private Integer cc_novo;
     private ArrayList<String> userVotingInfo;
+    private String post_id;
 
 
     public String loginFacebook() {
@@ -62,6 +61,7 @@ public class UserAction extends Action implements SessionAware {
         Response response = request.send();
         JSONObject json = null;
         try {
+
             json = (JSONObject) (new JSONParser().parse(response.getBody()));
         } catch (ParseException e) {
             return "error";
@@ -71,8 +71,8 @@ public class UserAction extends Action implements SessionAware {
         Integer aux = this.getUserBean().checkFacebookID();
         if (aux != null) {
             this.getUserBean().setFacebookToken(accessToken.getToken());
-            this.getUserBean().updateFacebookToken();
             session.put("numero_cc", Integer.toString(aux));
+            this.getUserBean().updateFacebookToken();
             session.put("facebookID", this.facebookID);
             session.put("accessToken", accessToken);
             session.put("loggedIn", true);
@@ -120,6 +120,7 @@ public class UserAction extends Action implements SessionAware {
         this.getUserBean().setNumeroCC((String)session.get("numero_cc"));
         if (this.getUserBean().unlinkAccount()) {
             this.session.remove("facebookID");
+            this.session.remove("accessToken");
             return "success";
         }
         //TODO: Can you request facebook to unlink it?
@@ -153,10 +154,14 @@ public class UserAction extends Action implements SessionAware {
             }
 
             session.put("loggedIn", true);
-            this.getUserBean().setEleicoesDecorrrer();
             return "success";
         }
         return "error";
+    }
+
+    public String showPlatform(){
+        eleicoes = loadEleicoes();
+        return "success";
     }
 
     public String create() {
@@ -194,8 +199,10 @@ public class UserAction extends Action implements SessionAware {
         } catch (ParseException e) {
             return "error";
         }
-        String post_id = (String) json.get("id");
-
+        post_id = (String) json.get("id");
+        if(post_id == null){
+            return "error";
+        }
         return "success";
     }
 
@@ -272,31 +279,30 @@ public class UserAction extends Action implements SessionAware {
     public String logout() {
         this.session.remove("numero_cc");
         this.session.remove("facebookID");
+        this.session.remove("accessToken");
         this.session.remove("loggedIn");
         this.session.remove("UserBean");
         return "success";
     }
 
-    public ArrayList<ArrayList<String>> getEleicoes() {
+    public ArrayList<ArrayList<String>> loadEleicoes() {
         return new EleicaoBean().getEleicoesDecorrer();
     }
 
+    public ArrayList<ArrayList<String>> getEleicoes() {
+        return eleicoes;
+    }
+
     public ArrayList<String> getEleicoes_id() {
-        this.eleicoes = new EleicaoBean().getEleicoesDecorrer();
-        this.eleicoes_id = this.eleicoes.get(0);
-        return eleicoes_id;
+        return this.eleicoes.get(0);
     }
 
     public ArrayList<String> getEleicoes_titulo() {
-        this.eleicoes = new EleicaoBean().getEleicoesDecorrer();
-        this.eleicoes_titulo = this.eleicoes.get(1);
-        return eleicoes_titulo;
+        return this.eleicoes.get(1);
     }
 
     public ArrayList<String> getEleicoes_local() {
-        this.eleicoes = new EleicaoBean().getEleicoesDecorrer();
-        this.eleicoes_local = this.eleicoes.get(2);
-        return eleicoes_local;
+        return this.eleicoes.get(2);
     }
 
     public ArrayList<String> getListas() {
@@ -367,5 +373,9 @@ public class UserAction extends Action implements SessionAware {
         this.getUserBean().setNumeroCC(getUserToShow());
         this.userVotingInfo = this.getUserBean().getVotingInfo();
         return this.userVotingInfo;
+    }
+
+    public String getPost_id() {
+        return post_id;
     }
 }

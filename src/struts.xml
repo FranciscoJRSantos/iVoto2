@@ -41,7 +41,7 @@
         <action name="login" class="Actions.UserAction" method="login">
             <interceptor-ref name="defaultStack" />
             <result name="admin"> WEB-INF/admin.jsp </result>
-            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="success" type="redirectAction">showPlatform</result>
             <result name="error">index.jsp</result>
         </action>
 
@@ -51,18 +51,22 @@
 
         <action name="loginFacebook" class="Actions.UserAction" method="loginFacebook">
             <interceptor-ref name="defaultStack" />
-            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="success" type="redirectAction">showPlatform</result>
             <result name="error">WEB-INF/Facebook/facebookError.jsp</result>
         </action>
 
         <action name="linkFacebook" class="Actions.UserAction" method="linkFacebook">
-            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="success" type="redirectAction">showPlatform</result>
             <result name="error">WEB-INF/Facebook/facebookLinkError.jsp</result>
         </action>
 
         <action name="unlinkFacebook" class="Actions.UserAction" method="unlinkFacebook">
+            <result name="success" type="redirectAction">showPlatform</result>
+            <result name="error">WEB-INF/Facebook/facebookUnlinkError.jsp</result>
+        </action>
+
+        <action name="showPlatform" class="Actions.UserAction" method="showPlatform">
             <result name="success">WEB-INF/platform.jsp</result>
-            <result name="error">WEB-INF/Facebook/facebookLinkError.jsp</result>
         </action>
 
         <action name="showListsFromElection" class="Actions.UserAction" method="showListas">
@@ -70,8 +74,13 @@
         </action>
 
         <action name="vote" class="Actions.UserAction" method="vote">
-            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="success" type="redirectAction">showPlatform</result>
             <result name="error">WEB-INF/platform.jsp</result>
+        </action>
+
+        <action name="postElectionFacebook" class="Actions.UserAction" method="postElectionFacebook">
+            <result name="success">WEB-INF/Facebook/facebookPostSuccessful.jsp</result>
+            <result name="error"> WEB-INF/Facebook/facebookPostFailed.jsp</result>
         </action>
 
 
@@ -104,11 +113,6 @@
 
         <action name="showUserVoteDetails" class="Actions.UserAction" method="showVoteDetails">
             <result name="success"> WEB-INF/Users/showVoteDetails.jsp </result>
-        </action>
-
-        <action name="postElectionFacebook" class="Actions.UserAction" method="postElectionFacebook">
-            <result name="success">WEB-INF/platform.jsp</result>
-            <!--<result name="error"> showUODetails.action </result>-->
         </action>
 
         <!-- Unidade Organica -->

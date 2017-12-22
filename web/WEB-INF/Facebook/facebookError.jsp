@@ -11,12 +11,9 @@
     <title>Account not connected to any account</title>
 </head>
 <body>
+<p>Your Facebook account is not linked to any iVotas account.</p>
+<p>Please link your Facebook account to your iVotas account after login in.</p>
 
-<div>
-    <p>Your Facebook account is not linked to any iVotas account.</p>
-    <p>Please link your Facebook account to your iVotas account after login in.</p>
-
-    <a href="/">Back to Login</a>
-</div>
+<a href="/">Back to Login</a>
 </body>
 </html>

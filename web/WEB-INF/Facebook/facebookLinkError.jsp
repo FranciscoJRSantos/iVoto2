@@ -11,8 +11,8 @@
     <title>Linking failed</title>
 </head>
 <body>
-Linking failed
+<p>Linking failed</p>
 
-<a href="/index.action">Back to voting platform</a>
+<a href="/login.showPlatform">Back to voting platform</a>
 </body>
 </html>
