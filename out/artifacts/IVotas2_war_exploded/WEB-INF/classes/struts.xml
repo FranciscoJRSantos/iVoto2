@@ -153,6 +153,10 @@
             <result name="error"> showUODetails.action </result>
         </action>
 
+        <action name="postElectionFacebook" class="Actions.EleicaoAction" method="postElectionFacebook">
+            <result name="success">WEB-INF/platform.jsp</result>
+            <!--<result name="error"> showUODetails.action </result>-->
+        </action>
 
         <!-- Mesa de Voto -->
         <action name="addMesaVoto" class="Actions.MesaVotoAction" method="execute">

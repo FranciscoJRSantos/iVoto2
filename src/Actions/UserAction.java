@@ -66,6 +66,7 @@ public class UserAction extends Action implements SessionAware {
         if (aux != null) {
             session.put("numero_cc", Integer.toString(aux));
             session.put("facebookID", this.facebookID);
+            session.put("accessToken", accessToken);
             session.put("loggedIn", true);
             return "success";
         }
@@ -98,6 +99,7 @@ public class UserAction extends Action implements SessionAware {
         if (aux == null) {
             if (this.getUserBean().linkAccount()) {
                 session.put("facebookID", this.facebookID);
+                session.put("accessToken", accessToken);
                 return "success";
             }
         }

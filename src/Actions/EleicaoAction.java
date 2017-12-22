@@ -1,9 +1,17 @@
 package Actions;
 
 import Beans.EleicaoBean;
+import Beans.FacebookApi2;
 import Beans.UnidadeOrganicaBean;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Token;
+import com.github.scribejava.core.model.Verb;
+import com.github.scribejava.core.model.Verifier;
+import com.github.scribejava.core.oauth.OAuthService;
 
 import java.util.ArrayList;
 
@@ -129,6 +137,25 @@ public class EleicaoAction extends Action implements SessionAware{
         this.bean.setFim(this.fim);
         this.bean.setTipo(this.tipo);
         this.bean.setUnidadeOrganica(this.unidade_organica_nome);
+        return "success";
+    }
+
+    public String postElectionFacebook(){
+        String paramValue = ServletActionContext.getRequest().getParameter("electionID");
+
+        OAuthService service = new ServiceBuilder()
+                .provider(FacebookApi2.class)
+                .apiKey("157491105017602")
+                .apiSecret("798b13e2014862882190ab49d5cebd0f")
+                .scope("publish_actions")
+                .build();
+        String election_url = "http://localhost:8080/showListsFromElection.action?eleicaoToVote=" + paramValue;
+        Token token = (Token) session.get("accessToken");
+        OAuthRequest request = new OAuthRequest(Verb.POST, "https://graph.facebook.com/me/feed", service);
+        request.addBodyParameter("message", "Come vote at: " + election_url);
+        service.signRequest(token, request);
+        Response response = request.send();
+
         return "success";
     }
 }

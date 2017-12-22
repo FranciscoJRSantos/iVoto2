@@ -28,6 +28,10 @@
             <br>
             <a href="<s:url action="showListsFromElection"/>?eleicaoToVote=${eleicoes_id[i.index]}">
                 Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]} </a>
+            <button type="submit" class="btn btn-default"
+                    onclick="location.href='<s:url action="postElectionFacebook"/>?electionID=${eleicoes_id[i.index]}'">
+                Share this election on Facebook
+            </button>
             <br>
         </c:forEach>
     </div>
