@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
+<h2> Criar Unidade Orgânica </h2>
 <div class="container-fluid">
     <s:form action="createUO" method="POST">
         Nome: <s:textfield name="nome"/>

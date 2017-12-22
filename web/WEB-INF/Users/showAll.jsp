@@ -19,8 +19,9 @@
     <h2> Utilizadores </h2>
 </div>
 <div class="container-fluid">
-    <c:forEach items="${users}" var="user">
-        <a href="<s:url action="showUserDetails"/>?user=${user}">${user}</a>
+    <c:forEach items="${cc}" varStatus="i" >
+        <a href="<s:url action="showUserDetails"/>?userToShow=${cc[i.index]}">CC:${cc[i.index]}</a> Nome: ${nome[i.index]}
+        <a href="<s:url action="showUserVoteDetails"/>?userToShow=${cc[i.index]}"> <button> Ver Informação de Voto </button> </a>
 
         <br>
     </c:forEach>

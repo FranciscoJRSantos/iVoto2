@@ -31,12 +31,8 @@
         <br>
         Eleicao:
         <select name="eleicao_id">
-            <c:forEach items="${eleicoes_id}" var="id">
-                <c:forEach items="${eleicoes_local}" var="local">
-                    <c:forEach items="${eleicoes_titulo}" var="titulo">
-                        <option value="${id}">Eleicao: ${titulo} Local: ${local}</option>
-                    </c:forEach>
-                </c:forEach>
+            <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
+                <option value="${eleicoes_id[i.index]}">Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]}</option>
             </c:forEach>
         </select>
         <br>

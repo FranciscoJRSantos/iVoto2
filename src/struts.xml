@@ -42,7 +42,7 @@
         <action name="login" class="Actions.UserAction" method="login">
             <interceptor-ref name="defaultStack" />
             <result name="admin"> WEB-INF/admin.jsp </result>
-            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="success" type="redirectAction">showPlatform</result>
             <result name="error">index.jsp</result>
         </action>
 
@@ -51,14 +51,39 @@
         </action>
 
         <action name="loginFacebook" class="Actions.UserAction" method="loginFacebook">
+            <interceptor-ref name="defaultStack" />
+            <result name="success" type="redirectAction">showPlatform</result>
+            <result name="error">WEB-INF/Facebook/facebookError.jsp</result>
+        </action>
+
+        <action name="linkFacebook" class="Actions.UserAction" method="linkFacebook">
+            <result name="success" type="redirectAction">showPlatform</result>
+            <result name="error">WEB-INF/Facebook/facebookLinkError.jsp</result>
+        </action>
+
+        <action name="unlinkFacebook" class="Actions.UserAction" method="unlinkFacebook">
+            <result name="success" type="redirectAction">showPlatform</result>
+            <result name="error">WEB-INF/Facebook/facebookUnlinkError.jsp</result>
+        </action>
+
+        <action name="showPlatform" class="Actions.UserAction" method="showPlatform">
             <result name="success">WEB-INF/platform.jsp</result>
-            <result name="error">index.jsp</result>
+        </action>
+
+        <action name="showListsFromElection" class="Actions.UserAction" method="showListas">
+            <result name="success"> WEB-INF/lists.jsp </result>
         </action>
 
         <action name="vote" class="Actions.UserAction" method="vote">
-            <result name="success">WEB-INF/platform.jsp</result>
-            <result name="error">WEB-INF/Error.jsp</result>
+            <result name="success" type="redirectAction">showPlatform</result>
+            <result name="error">WEB-INF/platform.jsp</result>
         </action>
+
+        <action name="postElectionFacebook" class="Actions.UserAction" method="postElectionFacebook">
+            <result name="success">WEB-INF/Facebook/facebookPostSuccessful.jsp</result>
+            <result name="error"> WEB-INF/Facebook/facebookPostFailed.jsp</result>
+        </action>
+
 
         <!-- //////////////////////////// ADMIN CONSOLE //////////////////////////// -->
 
@@ -82,14 +107,13 @@
             <result name="success"> WEB-INF/Users/readUser.jsp </result>
         </action>
 
-        <action name="updateUser" class="Actions.UserAction" method="show">
+        <action name="updateUser" class="Actions.UserAction" method="updateUtilizador">
             <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> showUserDetails.action </result>
         </action>
 
-        <action name="deleteUser" class="Actions.UserAction" method="show">
-            <result name="success">WEB-INF/admin.jsp</result>
-            <result name="error"> showUserDetails.action </result>
+        <action name="showUserVoteDetails" class="Actions.UserAction" method="showVoteDetails">
+            <result name="success"> WEB-INF/Users/showVoteDetails.jsp </result>
         </action>
 
         <!-- Unidade Organica -->
@@ -125,8 +149,25 @@
             <result name="error"> addEleicao.action </result>
         </action>
 
+        <action name="showEleicaoDetails" class="Actions.EleicaoAction" method="show">
+            <result name="success"> WEB-INF/Elections/readElection.jsp </result>
+        </action>
+
         <action name="showAllEleicoes" class="Actions.EleicaoAction" method="showAll">
             <result name="success"> WEB-INF/Elections/showAll.jsp </result>
+        </action>
+
+        <action name="updateEleicao" class="Actions.EleicaoAction" method="updateEleicao">
+            <result name="success">WEB-INF/admin.jsp</result>
+            <result name="error"> WEB-INF/Elections/showAll.jsp </result>
+        </action>
+
+        <action name="showEleicaoResultados" class="Actions.EleicaoAction" method="showResultados">
+            <result name="success"> WEB-INF/Elections/showResults.jsp</result>
+        </action>
+
+        <action name="showEleicoesPassadas" class="Actions.EleicaoAction" method="showPast">
+            <result name="success"> WEB-INF/Elections/showAllPast.jsp </result>
         </action>
 
         <!-- Mesa de Voto -->
@@ -134,7 +175,7 @@
             <result name="success"> WEB-INF/MesasDeVoto/createMesaVoto.jsp </result>
         </action>
 
-        <action name="createMesaVoto" class="Actions.MesaVotoAction" method="show">
+        <action name="createMesaVoto" class="Actions.MesaVotoAction" method="create">
             <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> WEB-INF/MesasDeVoto/createMesaVoto.jsp </result>
         </action>

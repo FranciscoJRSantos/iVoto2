@@ -1,6 +1,7 @@
 package RMIServer;
 
 import ws.websocketInterface;
+import sun.misc.REException;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -19,38 +20,56 @@ public interface ServerInterface extends Remote{
     public boolean createEleicao(String titulo, String inicio, String fim, String descricao, int tipo, String un_org_nome) throws RemoteException;
     public boolean createLista(String nome, int tipo, int eleicao_id, int numero_cc) throws RemoteException;
     public boolean createMesaVoto(String un_org_nome, int eleicao_id, int numero_cc) throws RemoteException;
+    // Create
+    boolean createUser(int numero_cc, String nome, String password_hashed, String morada, int contacto, String validade_cc, int tipo, String un_org_nome) throws RemoteException;
+    boolean createUnidadeOrganica(String nome, String pertence) throws RemoteException;
+    boolean createEleicao(String titulo, String inicio, String fim, String descricao, int tipo, String un_org_nome) throws RemoteException;
+    boolean createLista(String nome, int tipo, int eleicao_id, int numero_cc) throws RemoteException;
+    boolean createMesaVoto(String un_org_nome, int eleicao_id, int numero_cc) throws RemoteException;
     // Read
-    public ArrayList<String> showUtilizador(int numero_cc) throws RemoteException;
-    public ArrayList<String> showUO(String nome) throws RemoteException;
-    public ArrayList<String> showAllUsers() throws RemoteException;
-    public ArrayList<String> showAllUO() throws RemoteException;
-    public ArrayList<String> showAllUONotFac() throws RemoteException;
-    public ArrayList<String> showEleicao(int id) throws RemoteException;
-    public ArrayList<ArrayList<String>> showEleicoesDecorrer() throws RemoteException;
-    public ArrayList<ArrayList<String>> showEleicoesPassadas() throws RemoteException;
-    public ArrayList<ArrayList<String>> showEleicoesFuturas() throws RemoteException;
-    public ArrayList<String> showLista(String nome, int eleicao_id) throws RemoteException;
-    public ArrayList<String> showPersonVotingInfo(int numero_cc, int eleicao_id) throws RemoteException;
-    public ArrayList<ArrayList<String>> showMesasVotoEleicao(int eleicao_id) throws RemoteException;
-    public ArrayList<ArrayList<String>> showUtilizadoresMesaVoto(int numero, int eleicao_id) throws RemoteException;
-    public ArrayList<String> pickListsFromElection(int numero_cc, int eleicao_id) throws RemoteException;
-    public ArrayList<String> showListsFromElection(int eleicao_id) throws RemoteException;
-    public ArrayList<ArrayList<String>> showResultadosFromEleicao(int eleicao_id) throws RemoteException;
+    ArrayList<String> showUtilizador(int numero_cc) throws RemoteException;
+    ArrayList<String> showUO(String nome) throws RemoteException;
+    ArrayList<ArrayList<String>> showAllUsers() throws RemoteException;
+    ArrayList<String> showAllUO() throws RemoteException;
+    ArrayList<String> showAllUONotFac() throws RemoteException;
+    ArrayList<String> showEleicao(int id) throws RemoteException;
+    ArrayList<ArrayList<String>> showEleicoesDecorrer() throws RemoteException;
+    ArrayList<ArrayList<String>> showEleicoesPassadas() throws RemoteException;
+    ArrayList<ArrayList<String>> showEleicoesFuturas() throws RemoteException;
+    ArrayList<String> showLista(String nome, int eleicao_id) throws RemoteException;
+    ArrayList<String> showPersonVotingInfo(int numero_cc, int eleicao_id) throws RemoteException;
+    ArrayList<ArrayList<String>> showMesasVotoEleicao(int eleicao_id) throws RemoteException;
+    ArrayList<ArrayList<String>> showUtilizadoresMesaVoto(int numero, int eleicao_id) throws RemoteException;
+    ArrayList<String> pickListsFromElection(int numero_cc, int eleicao_id) throws RemoteException;
+    ArrayList<String> showListsFromElection(int eleicao_id) throws RemoteException;
+    ArrayList<ArrayList<String>> showResultadosFromEleicao(int eleicao_id) throws RemoteException;
+    ArrayList<String> showPersonVotingInfoAll(int numero_cc) throws RemoteException;
     // Update
-    public boolean updateUtilizador(int cc, String new_info, int flag) throws RemoteException;
-    public String vote(int cc, String lista, int eleicao_id, int mesavoto_id) throws RemoteException;
-    public String anticipatedVote(int cc, String lista, int eleicao_id, String pass) throws RemoteException;
-    public boolean updateEleicoesData(int id, String newdate, int flag) throws RemoteException;
-    public boolean updateEleicoesDescricao(int id, String newdate) throws RemoteException;
-    public boolean updateUnidadeOrganica(String nome, String novo_nome, int flag) throws RemoteException;
-    public boolean updateMesaVotoUtilizadores(int numero_cc, int mesa_voto_numero, int id_eleicao) throws RemoteException;
+
+    boolean updateUtilizador(int cc, String new_info, int flag) throws RemoteException;
+    String vote(int cc, String lista, int eleicao_id, int mesavoto_id) throws RemoteException;
+    String anticipatedVote(int cc, String lista, int eleicao_id, String pass) throws RemoteException;
+    boolean updateEleicoesData(int id, String newdate, int flag) throws RemoteException;
+    boolean updateEleicoesDescricao(int id, String newdate) throws RemoteException;
+    boolean updateUnidadeOrganica(String nome, String novo_nome, int flag) throws RemoteException;
+    boolean updateMesaVotoUtilizadores(int numero_cc, int mesa_voto_numero, int id_eleicao) throws RemoteException;
+    boolean updateEleicao(Integer id, String nome, String inicio, String fim, String descricao, Integer tipo, String unidade_organica) throws RemoteException;
+    boolean updateUser(Integer cc_velho, Integer cc_novo, String nome, String morada, String password, String validade_cc, Integer contacto, String un_org_nome) throws RemoteException;
+    boolean linkFacebook(Integer cc, String id, String token) throws RemoteException;
+    boolean unlinkFacebook(Integer cc) throws RemoteException;
+    boolean updateUserFacebookToken(Integer cc, String token) throws RemoteException;
+
     // Delete
-    public boolean deleteUtilizador(int numero_cc) throws RemoteException;
-    public boolean deleteUO(String nome) throws RemoteException;
-    public boolean deleteLista(String nome, int eleicao_id) throws RemoteException;
-    public boolean deleteMesaVoto(int numero,String un_org_nome, int eleicao_id) throws RemoteException;
+    boolean deleteUtilizador(int numero_cc) throws RemoteException;
+    boolean deleteUO(String nome) throws RemoteException;
+    boolean deleteLista(String nome, int eleicao_id) throws RemoteException;
+    boolean deleteMesaVoto(int numero,String un_org_nome, int eleicao_id) throws RemoteException;
     // Security
-    public String checkCC(int numero_cc, int eleicao_id) throws RemoteException;
-    public boolean checkLogin(int numero_cc, String nome, String password_hashed) throws RemoteException;
-    public boolean isConnected() throws RemoteException;
+
+    String checkCC(int numero_cc, int eleicao_id) throws RemoteException;
+    boolean checkLogin(int numero_cc, String nome, String password_hashed) throws RemoteException;
+    boolean isConnected() throws RemoteException;
+    Integer findFacebookID(String id) throws RemoteException;
+    String getUserFacebookID(Integer cc) throws RemoteException;
+    String getUserFacebookToken(Integer cc) throws RemoteException;
 }

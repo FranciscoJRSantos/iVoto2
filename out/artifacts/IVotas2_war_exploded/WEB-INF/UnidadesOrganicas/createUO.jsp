@@ -14,11 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
+<h2> Criar Unidade Orgânica </h2>
 <div class="container-fluid">
     <s:form action="createUO" method="POST">
-        Nome: <s:textfield value="nome"/>
+        Nome: <s:textfield name="nome"/>
         <br>
-        Percente à Faculdade: <s:textfield value="pertence"/>
+        Percente à Faculdade: <s:textfield name="pertence"/>
         <br>
         <s:submit value="Criar Unidade Organica" class="btn btn-default"/>
     </s:form>

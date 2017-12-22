@@ -16,8 +16,6 @@ public class SessionInterceptor implements Interceptor {
         Map<String, Object> sessionAttributes = invocation.getInvocationContext().getSession();
 
         UserBean userBean = (UserBean) sessionAttributes.get("UserBean");
-        System.out.println(userBean);
-
         if(userBean != null) {
             return invocation.invoke();
         }

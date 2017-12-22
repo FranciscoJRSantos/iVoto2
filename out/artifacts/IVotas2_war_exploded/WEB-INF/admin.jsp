@@ -10,7 +10,7 @@
 --%>
 <html>
 <head>
-    <title>IVotas</title>
+    <title>IVotas2</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta name="viewport" content="width=320px, initial-scale=1, shrink-to-fit=yes">
 </head>
@@ -27,7 +27,7 @@
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
         <s:form action="showAllUsers" method="GET">
-            <s:submit value="Editar Utilizador" class="btn btn-default"/>
+            <s:submit value="Ver Utilizador" class="btn btn-default"/>
         </s:form>
         </div>
 
@@ -56,7 +56,7 @@
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
         <s:form action="showAllEleicoes" method="GET">
-            <s:submit value="Editar Eleicao" class="btn btn-default"/>
+            <s:submit value="Ver Eleicao" class="btn btn-default"/>
         </s:form>
         </div>
     </div>
@@ -89,6 +89,13 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-xs-1 col-md-1">
+            <s:form action="showEleicoesPassadas" method="GET">
+                <s:submit value="Ver Eleiçoes Passadas" class="btn btn-default"/>
+            </s:form>
+        </div>
+    </div>
     <div class="container-fluid">
         <s:form action="logout" method="GET">
             <s:submit value="Logout" class="btn btn-default"/>
