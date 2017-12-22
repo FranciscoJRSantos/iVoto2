@@ -14,6 +14,8 @@ public class EleicaoBean extends Bean {
     private String unidade_organica;
     private Integer toShowID;
     private ArrayList<String> eleicaoToShow;
+    private ArrayList<String> totalVotos;
+    private ArrayList<ArrayList<String>> results;
 
     public EleicaoBean() { super(); }
 
@@ -46,7 +48,7 @@ public class EleicaoBean extends Bean {
 
     public boolean updateEleicao(){
         try{
-            return this.server.updateEleicao(this.nome,this.inicio,this.fim,this.descricao,this.tipo,this.unidade_organica);
+            return this.server.updateEleicao(this.toShowID,this.nome,this.inicio,this.fim,this.descricao,this.tipo,this.unidade_organica);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -92,5 +94,28 @@ public class EleicaoBean extends Bean {
 
     public void setEleicaoToShow(ArrayList<String> eleicaoToShow) {
         this.eleicaoToShow = eleicaoToShow;
+    }
+
+    public Integer getToShowID() {
+        return this.toShowID;
+    }
+
+    public ArrayList<ArrayList<String>> getResults() {
+        try{
+            this.results = this.server.showResultadosFromEleicao(this.toShowID);
+            return this.results;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> getEleicoesPassadas() {
+        try {
+            this.eleicoes = server.showEleicoesPassadas();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return eleicoes;
     }
 }

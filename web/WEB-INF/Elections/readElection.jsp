@@ -14,10 +14,35 @@
 </head>
 <body>
 <div class="container-fluid">
+    <h2> Alterar Eleicao </h2>
     <s:form action="updateEleicao" method="POST">
-        <c:forEach items="${eleicaoToShow}" var="eleicao_data">
-            <s:textfield name="${eleicao_data}" value="${eleicao_data}"/>
-        </c:forEach>
+        <s:hidden name="toShowID"/>
+        <br>
+        Nome da Eleição: <s:textfield name="nome"/>
+        <br>
+        Descrição da Eleicão: <s:textfield name="descricao"/>
+        <br>
+        Tipo da Eleicao:
+        <select name="tipo">
+            <option value="0"> Nucleo de Estudantes </option>
+            <option value="1"> Concelho Geral </option>
+            <option value="2"> Direção de Departamento </option>
+            <option value="3"> Direção de Faculdade </option>
+        </select>
+        <br>
+        Incio: <input type="datetime-local" name="inicio"/>
+        <br>
+        Fim: <input type="datetime-local" name="fim"/>
+        <br>
+        <br>
+        Unidade Organica:
+        <select name="unidade_organica_nome">
+            <c:forEach items="${unidades_organicas}" var="uo">
+                <option value="${uo}"> ${uo}</option>
+            </c:forEach>
+        </select>
+        <br>
+        <s:submit value="Alterar Eleição" class="btn btn-default"/>
     </s:form>
 </div>
 </body>

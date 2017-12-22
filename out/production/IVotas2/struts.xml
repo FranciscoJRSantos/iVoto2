@@ -86,14 +86,13 @@
             <result name="success"> WEB-INF/Users/readUser.jsp </result>
         </action>
 
-        <action name="updateUser" class="Actions.UserAction" method="show">
+        <action name="updateUser" class="Actions.UserAction" method="updateUtilizador">
             <result name="success">WEB-INF/admin.jsp</result>
             <result name="error"> showUserDetails.action </result>
         </action>
 
-        <action name="deleteUser" class="Actions.UserAction" method="show">
-            <result name="success">WEB-INF/admin.jsp</result>
-            <result name="error"> showUserDetails.action </result>
+        <action name="showUserVoteDetails" class="Actions.UserAction" method="showVoteDetails">
+            <result name="success"> WEB-INF/Users/showVoteDetails.jsp </result>
         </action>
 
         <!-- Unidade Organica -->
@@ -139,7 +138,15 @@
 
         <action name="updateEleicao" class="Actions.EleicaoAction" method="updateEleicao">
             <result name="success">WEB-INF/admin.jsp</result>
-            <result name="error"> showUODetails.action </result>
+            <result name="error"> WEB-INF/Elections/showAll.jsp </result>
+        </action>
+
+        <action name="showEleicaoResultados" class="Actions.EleicaoAction" method="showResultados">
+            <result name="success"> WEB-INF/Elections/showResults.jsp</result>
+        </action>
+
+        <action name="showEleicoesPassadas" class="Actions.EleicaoAction" method="showPast">
+            <result name="success"> WEB-INF/Elections/showAllPast.jsp </result>
         </action>
 
 

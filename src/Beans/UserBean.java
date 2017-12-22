@@ -9,7 +9,7 @@ public class UserBean extends Bean{
     private String username = null;
     private String password = null;
     private ArrayList<ArrayList<String>> eleicoes = null;
-    private ArrayList<String> utilizadores = null;
+    private ArrayList<ArrayList<String>> utilizadores = null;
     private String morada;
     private Integer contacto;
     private String validade_cc;
@@ -17,6 +17,7 @@ public class UserBean extends Bean{
     private String un_org_nome;
     private Integer eleicao_id;
     private String lista;
+    private Integer numeroCCNovo;
 
     public UserBean(){
         super();
@@ -80,7 +81,7 @@ public class UserBean extends Bean{
         }
     }
 
-    public ArrayList<String> getUsers() {
+    public ArrayList<ArrayList<String>> getUsers() {
         try {
             this.utilizadores = server.showAllUsers();
         } catch (RemoteException e) {
@@ -118,5 +119,27 @@ public class UserBean extends Bean{
 
     public Integer getEleicao_id() {
         return eleicao_id;
+    }
+
+    public boolean updateUtilizador() {
+        try{
+            return this.server.updateUser(this.numero_cc,this.numeroCCNovo,this.username,this.morada,this.password,this.validade_cc,this.contacto,this.un_org_nome);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void setNumeroCCNovo(Integer numeroCCNovo) {
+        this.numeroCCNovo = numeroCCNovo;
+    }
+
+    public ArrayList<String> getVotingInfo() {
+        try {
+            return this.server.showPersonVotingInfoAll(this.numero_cc);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -13,19 +13,24 @@ public class UserAction extends Action implements SessionAware{
     private String numero_cc = null;
     private String username = null;
     private String password = null;
-    private ArrayList<String> users = null;
     private String validade_cc;
     private String morada;
     private String contacto;
     private String tipo;
     private String unidade_organica;
     private ArrayList<ArrayList<String>> eleicoes;
+    private ArrayList<ArrayList<String>> utilizadores = null;
     private ArrayList<String> eleicoes_id;
     private ArrayList<String> eleicoes_titulo;
     private ArrayList<String> eleicoes_local;
     private ArrayList<String> listas;
+    private ArrayList<String> cc = null;
+    private ArrayList<String> nome = null;
     private String eleicaoToVote;
     private String listaToVote;
+    private String userToShow;
+    private Integer cc_novo;
+    private ArrayList<String> userVotingInfo;
 
 
     public String loginFacebook() throws Exception {
@@ -104,7 +109,7 @@ public class UserAction extends Action implements SessionAware{
     }
 
     public String showAll() throws Exception {
-        setUsers(this.getUserBean().getUsers());
+        setUtilizadores(this.getUserBean().getUsers());
         return "success";
     }
 
@@ -122,12 +127,12 @@ public class UserAction extends Action implements SessionAware{
         this.tipo = tipo;
     }
 
-    public ArrayList<String> getUsers() {
-        return users;
+    public ArrayList<ArrayList<String>> getUsers() {
+        return utilizadores;
     }
 
-    public void setUsers(ArrayList<String> users) {
-        this.users = users;
+    public void setUtilizadores(ArrayList<ArrayList<String>> users) {
+        this.utilizadores = users;
     }
 
     public String logout() throws Exception {
@@ -182,5 +187,50 @@ public class UserAction extends Action implements SessionAware{
 
     public String showListas() throws Exception {
         return "success";
+    }
+
+    public ArrayList<String> getCc() {
+        return this.getUserBean().getUsers().get(0);
+    }
+
+    public ArrayList<String> getNome() {
+        return this.getUserBean().getUsers().get(1);
+    }
+
+    public String getUserToShow() {
+        String paramValue = ServletActionContext.getRequest().getParameter("userToShow");
+        System.out.println(paramValue);
+        this.userToShow = paramValue;
+        return this.userToShow;
+    }
+
+    public void setUserToShow(String userToShow) {
+        this.userToShow = userToShow;
+    }
+
+    public String updateUtilizador() throws Exception {
+        this.getUserBean().setNumeroCC(this.numero_cc);
+        this.getUserBean().setNumeroCCNovo(this.cc_novo);
+        this.getUserBean().setValidade_cc(this.validade_cc);
+        this.getUserBean().setUsername(this.username);
+        this.getUserBean().setPassword(this.password);
+        this.getUserBean().setTipo(Integer.parseInt(this.tipo));
+        this.getUserBean().setUn_org_nome(this.unidade_organica);
+        this.getUserBean().setMorada(this.morada);
+        this.getUserBean().setContacto(Integer.parseInt(this.contacto));
+        if(this.getUserBean().updateUtilizador()){
+
+        }
+        return "success";
+    }
+
+    public String showVoteDetails() throws Exception {
+        return "success";
+    }
+
+    public ArrayList<String> getUserVotingInfo() {
+        this.getUserBean().setNumeroCC(getUserToShow());
+        this.userVotingInfo = this.getUserBean().getVotingInfo();
+        return this.userVotingInfo;
     }
 }

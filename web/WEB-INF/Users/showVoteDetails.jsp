@@ -16,16 +16,13 @@
 </head>
 <body>
 <div>
-    <h2> Eleições </h2>
+    <h2> Informação de Votação </h2>
 </div>
 <div class="container-fluid">
-    <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
-        <br>
-        ${eleicoes_id[i.index]}
-        <a href="<s:url action="showEleicaoDetails"/>?toShowID=${eleicoes_id[i.index]}">  Eleicao: ${eleicoes_titulo[i.index]}  </a>Local: ${eleicoes_local[i.index]}
-        <br>
-        <a href="<s:url action="showEleicaoResultados"/>?toShowID=${eleicoes_id[i.index]}"> <button> Ver Resultados </button> </a>
-        <br>
+    Mesa de Voto | Eleitor | Data
+    <br>
+    <c:forEach items="${userVotingInfo}" var="info">
+        <c:out value="${info}"/> |
     </c:forEach>
 </div>
 

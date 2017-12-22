@@ -15,29 +15,30 @@
 </head>
 <body>
 <div class="container-fluid">
+    <h2> Editar Utilizador </h2>
     <s:form action="updateUser" method="POST">
-        Numero Cartao Cidadao: <s:textfield name="numero_cc" value="${UserBean.numero_cc}"/>
+        Numero Cartao Cidadao: <s:textfield name="userToShow"/>
         <br>
-        Validade do Cartão de Cidadão: <s:textfield name="validade_cc" value="${UserBean.validade_cc}"/>
+        Validade do Cartão de Cidadão: <s:textfield name="validade_cc"/>
         <br>
-        Nome de Utilizador: <s:textfield name="username" value="${UserBean.username}"/>
+        Nome de Utilizador: <s:textfield name="username"/>
         <br>
-        Password: <s:password name="password" value="${UserBean.password}"/>
+        Password: <s:password name="password"/>
         <br>
-        Unidade Organica: <s:textfield name="unidade_organica" value="${UserBean.unidade_organica}"/>
+        Unidade Organica: <s:textfield name="unidade_organica"/>
         <br>
-        Morada: <s:textfield name="morada" value="${UserBean.morada}"/>
+        Morada: <s:textfield name="morada"/>
         <br>
         Contacto: <s:textfield name="contacto"/>
         <br>
         Tipo de Utilizador:
-        <select name="${UserBean.tipo}">
+        <select name="tipo">
             <option value="0"> Estudante </option>
             <option value="1"> Docente </option>
             <option value="2"> Funcionário </option>
         </select>
         <br>
-        <s:submit value="Criar Utilizador" class="btn btn-default"/>
+        <s:submit value="Editar Utilizador" class="btn btn-default"/>
     </s:form>
 </div>
 </body>

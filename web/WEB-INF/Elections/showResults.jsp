@@ -19,12 +19,10 @@
     <h2> Eleições </h2>
 </div>
 <div class="container-fluid">
-    <c:forEach items="${eleicoes_id}" var="eleicao_id" varStatus="i">
+    Total de Votos: ${total_votos}
+    <c:forEach items="${nome_lista}" varStatus="i">
         <br>
-        ${eleicoes_id[i.index]}
-        <a href="<s:url action="showEleicaoDetails"/>?toShowID=${eleicoes_id[i.index]}">  Eleicao: ${eleicoes_titulo[i.index]}  </a>Local: ${eleicoes_local[i.index]}
-        <br>
-        <a href="<s:url action="showEleicaoResultados"/>?toShowID=${eleicoes_id[i.index]}"> <button> Ver Resultados </button> </a>
+        Nome da Lista: ${nome_lista[i.index]}   Votos da Lista: ${votos_lista[i.index]}     Percentagem Votos: ${percentagem_votos[i.index]}
         <br>
     </c:forEach>
 </div>

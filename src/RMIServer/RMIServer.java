@@ -177,11 +177,17 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     }
 
-    public ArrayList<String> showAllUsers() throws RemoteException{
-        ArrayList<String> utilizadores;
-        String sql = "SELECT numero_cc, nome FROM utilizador;";
-        utilizadores = database.submitQuery(sql);
-        System.out.println(utilizadores);
+    public ArrayList<ArrayList<String>> showAllUsers() throws RemoteException{
+        ArrayList<ArrayList<String>> utilizadores = new ArrayList<>();
+        ArrayList<String> cc;
+        ArrayList<String> nome;
+        String sql_cc = "SELECT numero_cc FROM utilizador;";
+        String sql_nome ="SELECT nome FROM utilizador;";
+        cc = database.submitQuery(sql_cc);
+        nome = database.submitQuery(sql_nome);
+
+        utilizadores.add(cc);
+        utilizadores.add(nome);
 
         return utilizadores;
     }
@@ -255,6 +261,8 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         resultados.add(nome_lista);
         resultados.add(votos_lista);
         resultados.add(percentagem_votos_lista);
+
+        System.out.println(resultados);
 
         return resultados;
     }
@@ -375,6 +383,20 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     }
 
+    public ArrayList<String> showPersonVotingInfoAll(int numero_cc) throws RemoteException{
+
+        ArrayList<String> info;
+        String sql = "SELECT * FROM eleicao_utilizador WHERE utilizador_numero_cc ='" + numero_cc + "';";
+        info = database.submitQuery(sql);
+
+        if (info.isEmpty()){
+            info = null;
+        }
+
+        return info;
+
+    }
+
     public ArrayList<ArrayList<String>> showMesasVotoEleicao(int eleicao_id) throws RemoteException{
 
         ArrayList<ArrayList<String>> mesas = new ArrayList<>();
@@ -445,6 +467,99 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         return true;
     }
 
+    public boolean updateUser(Integer cc_velho, Integer cc_novo, String nome, String morada, String password, String validade_cc, Integer contacto, String un_org_nome) throws RemoteException {
+
+        if (cc_velho == null){
+            return false;
+        }
+        if (cc_novo != null){
+            this.updateUtilizador(cc_velho,cc_novo.toString(),4);
+        }
+        if (nome != null){
+            if (cc_novo == null){
+                this.updateUtilizador(cc_velho,nome,1);
+            }
+            else{
+                this.updateUtilizador(cc_novo,nome,1);
+            }
+        }
+        if (morada != null){
+            if (cc_novo == null){
+                this.updateUtilizador(cc_velho,morada,2);
+            }
+            else{
+                this.updateUtilizador(cc_novo,morada,2);
+            }
+        }
+        if (contacto != null){
+            if (cc_novo == null){
+                this.updateUtilizador(cc_velho, contacto.toString(), 3);
+            }
+            else {
+                this.updateUtilizador(cc_novo, contacto.toString(), 3);
+            }
+        }
+        if (validade_cc != null){
+            if (cc_novo == null){
+                this.updateUtilizador(cc_velho, validade_cc, 5);
+            }
+            else {
+                this.updateUtilizador(cc_novo,validade_cc,5);
+            }
+        }
+        if (password != null){
+            if (cc_novo == null){
+                this.updateUtilizador(cc_velho,password,7);
+            }
+            else{
+                this.updateUtilizador(cc_novo,password,7);
+            }
+        }
+        if (un_org_nome != null){
+            if (cc_novo == null){
+                this.updateUtilizador(cc_velho,un_org_nome,6);
+            }
+            else{
+                this.updateUtilizador(cc_novo,un_org_nome,6);
+            }
+        }
+        return true;
+    }
+
+    public boolean updateEleicoesNome(Integer id, String nome){
+        boolean toClient = true;
+        String sql = "SELECT * FROM eleicao WHERE ID='" + id + "' AND NOW() NOT BETWEEN inicio AND fim;";
+        ArrayList<String> aux = database.submitQuery(sql);
+        if (aux.isEmpty()){
+            toClient = false;
+        }
+        else{
+            sql = "UPDATE eleicao SET titulo ='" + nome + "' WHERE id ='" + id + "';";
+            database.submitUpdate(sql);
+        }
+
+        return toClient;
+    }
+
+    public boolean updateEleicao(Integer id, String nome, String inicio, String fim, String descricao, Integer tipo, String unidade_organica) throws RemoteException{
+        if (id == null){
+            return false;
+        }
+        if (nome != null && !nome.isEmpty()){
+            this.updateEleicoesNome(id,nome);
+        }
+        if (descricao != null && !descricao.isEmpty()){
+            this.updateEleicoesDescricao(id,descricao);
+        }
+        if (inicio != null && !inicio.isEmpty()){
+            this.updateEleicoesData(id,inicio,1);
+        }
+        if (fim != null && !fim.isEmpty()){
+            this.updateEleicoesData(id,fim,2);
+        }
+        return true;
+    }
+
     public boolean updateEleicoesDescricao(int id, String newdate) throws RemoteException{
 
         boolean toClient = true;
@@ -480,6 +595,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
         return toClient;
     }
+
 
     public boolean updateUnidadeOrganica(String nome, String novo_nome, int flag) throws RemoteException{
 

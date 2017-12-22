@@ -27,7 +27,7 @@
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
         <s:form action="showAllUsers" method="GET">
-            <s:submit value="Editar Utilizador" class="btn btn-default"/>
+            <s:submit value="Ver Utilizador" class="btn btn-default"/>
         </s:form>
         </div>
 
@@ -56,7 +56,7 @@
 
         <div class="col-xs-6 col-md-6 col-md-offset-2">
         <s:form action="showAllEleicoes" method="GET">
-            <s:submit value="Editar Eleicao" class="btn btn-default"/>
+            <s:submit value="Ver Eleicao" class="btn btn-default"/>
         </s:form>
         </div>
     </div>
@@ -86,6 +86,14 @@
         <s:form action="showAllMesas" method="GET">
             <s:submit value="Editar Mesa de Voto" class="btn btn-default"/>
         </s:form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-1 col-md-1">
+            <s:form action="showEleicoesPassadas" method="GET">
+                <s:submit value="Ver Eleiçoes Passadas" class="btn btn-default"/>
+            </s:form>
         </div>
     </div>
     <div class="container-fluid">
