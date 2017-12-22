@@ -41,9 +41,27 @@ public class UserBean extends Bean{
         return null;
     }
 
+    public String getFacebookID(){
+        try {
+            return this.server.getUserFacebookID(this.numero_cc);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean linkAccount(){
         try {
             return this.server.linkFacebook(this.numero_cc, this.facebookID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean unlinkAccount(){
+        try {
+            return this.server.unlinkFacebook(this.numero_cc);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

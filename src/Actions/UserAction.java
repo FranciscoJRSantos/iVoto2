@@ -15,10 +15,11 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 
-public class UserAction extends Action implements SessionAware{
+public class UserAction extends Action implements SessionAware {
 
     private String numero_cc = null;
     private String username = null;
@@ -39,7 +40,7 @@ public class UserAction extends Action implements SessionAware{
     private String listaToVote;
 
 
-    public String loginFacebook() throws Exception {
+    public String loginFacebook() {
         OAuthService service = new ServiceBuilder()
                 .provider(FacebookApi2.class)
                 .apiKey("157491105017602")
@@ -50,24 +51,28 @@ public class UserAction extends Action implements SessionAware{
         String paramValue = ServletActionContext.getRequest().getParameter("code");
         Verifier v = new Verifier(paramValue);
         Token accessToken = service.getAccessToken(null, v);
-        System.out.println(accessToken.getToken());
         OAuthRequest request = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me", service);
         service.signRequest(accessToken, request);
         Response response = request.send();
-        JSONObject json = (JSONObject) (new JSONParser().parse(response.getBody()));
+        JSONObject json = null;
+        try {
+            json = (JSONObject) (new JSONParser().parse(response.getBody()));
+        } catch (ParseException e) {
+            return "error";
+        }
         facebookID = (String) json.get("id");
         this.getUserBean().setFacebookID(this.facebookID);
         Integer aux = this.getUserBean().checkFacebookID();
-        if(aux != null){
+        if (aux != null) {
             session.put("numero_cc", Integer.toString(aux));
             session.put("facebookID", this.facebookID);
-            session.put("loggedIn",true);
+            session.put("loggedIn", true);
             return "success";
         }
         return "error";
     }
 
-    public String linkFacebook() throws Exception{
+    public String linkFacebook() {
         OAuthService service = new ServiceBuilder()
                 .provider(FacebookApi2.class)
                 .apiKey("157491105017602")
@@ -78,15 +83,19 @@ public class UserAction extends Action implements SessionAware{
         String paramValue = ServletActionContext.getRequest().getParameter("code");
         Verifier v = new Verifier(paramValue);
         Token accessToken = service.getAccessToken(null, v);
-        System.out.println(accessToken.getToken());
         OAuthRequest request = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me", service);
         service.signRequest(accessToken, request);
         Response response = request.send();
-        JSONObject json = (JSONObject) (new JSONParser().parse(response.getBody()));
+        JSONObject json = null;
+        try {
+            json = (JSONObject) (new JSONParser().parse(response.getBody()));
+        } catch (ParseException e) {
+            return "error";
+        }
         facebookID = (String) json.get("id");
         this.getUserBean().setFacebookID(this.facebookID);
         Integer aux = this.getUserBean().checkFacebookID();
-        if (aux == null){
+        if (aux == null) {
             if (this.getUserBean().linkAccount()) {
                 session.put("facebookID", this.facebookID);
                 return "success";
@@ -95,30 +104,42 @@ public class UserAction extends Action implements SessionAware{
         return "error";
     }
 
-    public String login() throws Exception {
-        if (this.numero_cc == null || this.username == null || this.password == null || this.numero_cc.isEmpty() || this.username.isEmpty() || this.password.isEmpty()){
+    public String unlinkFacebook() {
+        this.getUserBean().setFacebookID(null);
+        if (this.getUserBean().unlinkAccount()) {
+            this.session.remove("facebookID");
+            return "success";
+        }
+        //TODO: Can you request facebook to unlink it?
+        return "error";
+    }
+
+    public String login() {
+        if (this.numero_cc == null || this.username == null || this.password == null || this.numero_cc.isEmpty() || this.username.isEmpty() || this.password.isEmpty()) {
             return "error";
         }
         this.getUserBean().setNumeroCC(this.numero_cc);
         this.getUserBean().setUsername(this.username);
         this.getUserBean().setPassword(this.password);
-        if (this.numero_cc.equals("0") && this.username.equals("admin") && this.password.equals("secret")){
-            if (this.getUserBean() != null){
-                session.put("numero_cc",this.username);
-                session.put("loggedIn",true);
+        if (this.numero_cc.equals("0") && this.username.equals("admin") && this.password.equals("secret")) {
+            if (this.getUserBean() != null) {
+                session.put("numero_cc", this.username);
+                session.put("loggedIn", true);
                 return "admin";
             }
-        }
-        else if (this.getUserBean().tryLogin()){
-            session.put("numero_cc",this.username);
-            session.put("loggedIn",true);
+        } else if (this.getUserBean().tryLogin()) {
+            session.put("numero_cc", this.username);
+            this.facebookID = this.getUserBean().getFacebookID();
+            this.getUserBean().setFacebookID(this.facebookID);
+            session.put("facebookID", this.facebookID);
+            session.put("loggedIn", true);
             this.getUserBean().setEleicoesDecorrrer();
             return "success";
         }
         return "error";
     }
 
-    public String create() throws Exception {
+    public String create() {
         this.getUserBean().setNumeroCC(this.numero_cc);
         this.getUserBean().setUsername(this.username);
         this.getUserBean().setPassword(this.password);
@@ -127,21 +148,20 @@ public class UserAction extends Action implements SessionAware{
         this.getUserBean().setValidade_cc(this.validade_cc);
         this.getUserBean().setUn_org_nome(this.unidade_organica);
         this.getUserBean().setTipo(Integer.parseInt(this.tipo));
-        if(this.getUserBean().createUser()){
+        if (this.getUserBean().createUser()) {
             return "success";
-        }
-        else return "error";
+        } else return "error";
     }
 
-    private UserBean getUserBean(){
-        if(!session.containsKey("UserBean")){
+    private UserBean getUserBean() {
+        if (!session.containsKey("UserBean")) {
             this.setLoginBean(new UserBean());
         }
         return (UserBean) session.get("UserBean");
     }
 
-    private void setLoginBean(UserBean userBean){
-        session.put("UserBean",userBean);
+    private void setLoginBean(UserBean userBean) {
+        session.put("UserBean", userBean);
     }
 
     public void setPassword(String password) {
@@ -152,15 +172,25 @@ public class UserAction extends Action implements SessionAware{
         this.numero_cc = numero_cc;
     }
 
-    public void setUsername(String username) { this.username = username; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public void setValidade_cc(String validade_cc) { this.validade_cc = validade_cc; }
+    public void setValidade_cc(String validade_cc) {
+        this.validade_cc = validade_cc;
+    }
 
-    public void setMorada(String morada) { this.morada = morada; }
+    public void setMorada(String morada) {
+        this.morada = morada;
+    }
 
-    public void setContacto(String contacto) { this.contacto = contacto; }
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
 
-    public void setUnidade_organica(String unidade_organica) { this.unidade_organica = unidade_organica; }
+    public void setUnidade_organica(String unidade_organica) {
+        this.unidade_organica = unidade_organica;
+    }
 
     public String show() throws Exception {
         return "success";
@@ -173,7 +203,7 @@ public class UserAction extends Action implements SessionAware{
 
     public String vote() throws Exception {
         System.out.println(this.listaToVote);
-        if (this.getUserBean().getEleicao_id() == null){
+        if (this.getUserBean().getEleicao_id() == null) {
             return "error";
         }
         this.getUserBean().setLista(this.listaToVote);
@@ -193,8 +223,9 @@ public class UserAction extends Action implements SessionAware{
         this.users = users;
     }
 
-    public String logout() throws Exception {
+    public String logout() {
         this.session.remove("numero_cc");
+        this.session.remove("facebookID");
         this.session.remove("loggedIn");
         this.session.remove("UserBean");
         return "success";

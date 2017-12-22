@@ -60,6 +60,11 @@
             <result name="error">WEB-INF/facebookLinkError.jsp</result>
         </action>
 
+        <action name="unlinkFacebook" class="Actions.UserAction" method="unlinkFacebook">
+            <result name="success">WEB-INF/platform.jsp</result>
+            <result name="error">WEB-INF/facebookLinkError.jsp</result>
+        </action>
+
         <action name="showListsFromElection" class="Actions.UserAction" method="showListas">
             <result name="success"> WEB-INF/lists.jsp </result>
         </action>
