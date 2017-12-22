@@ -12,5 +12,7 @@
 </head>
 <body>
 Linking failed
+
+<a href="/index.action">Back to voting platform</a>
 </body>
 </html>

@@ -173,6 +173,32 @@ public class UserAction extends Action implements SessionAware {
         } else return "error";
     }
 
+    public String postElectionFacebook(){
+        String paramValue = ServletActionContext.getRequest().getParameter("electionID");
+
+        OAuthService service = new ServiceBuilder()
+                .provider(FacebookApi2.class)
+                .apiKey("157491105017602")
+                .apiSecret("798b13e2014862882190ab49d5cebd0f")
+                .scope("publish_actions")
+                .build();
+        String election_url = "http://localhost:8080/showListsFromElection.action?eleicaoToVote=" + paramValue;
+        Token token = (Token) session.get("accessToken");
+        OAuthRequest request = new OAuthRequest(Verb.POST, "https://graph.facebook.com/me/feed", service);
+        request.addBodyParameter("message", "Come vote at: " + election_url);
+        service.signRequest(token, request);
+        Response response = request.send();
+        JSONObject json = null;
+        try {
+            json = (JSONObject) (new JSONParser().parse(response.getBody()));
+        } catch (ParseException e) {
+            return "error";
+        }
+        String post_id = (String) json.get("id");
+
+        return "success";
+    }
+
     private UserBean getUserBean() {
         if (!session.containsKey("UserBean")) {
             this.setLoginBean(new UserBean());
