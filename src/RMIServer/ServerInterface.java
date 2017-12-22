@@ -1,18 +1,26 @@
 package RMIServer;
 
-import sun.misc.REException;
+
+import ws.websocketInterface;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ServerInterface extends Remote{
+    //websockets
+    public void subscribeWeb(websocketInterface w) throws RemoteException, SQLException;
+    public void unsubscribeWeb(websocketInterface w) throws RemoteException;
+    public void logoutUser(String ncc) throws RemoteException;
+    public void mesaNotifica(int i, int flag) throws RemoteException;
     // Create
     boolean createUser(int numero_cc, String nome, String password_hashed, String morada, int contacto, String validade_cc, int tipo, String un_org_nome) throws RemoteException;
     boolean createUnidadeOrganica(String nome, String pertence) throws RemoteException;
     boolean createEleicao(String titulo, String inicio, String fim, String descricao, int tipo, String un_org_nome) throws RemoteException;
     boolean createLista(String nome, int tipo, int eleicao_id, int numero_cc) throws RemoteException;
     boolean createMesaVoto(String un_org_nome, int eleicao_id, int numero_cc) throws RemoteException;
+
     // Read
     ArrayList<String> showUtilizador(int numero_cc) throws RemoteException;
     ArrayList<String> showUO(String nome) throws RemoteException;

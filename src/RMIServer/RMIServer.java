@@ -5,6 +5,7 @@
 
 package RMIServer;
 
+import ws.websocketInterface;
 import java.io.IOException;
 import java.net.*;
 import java.rmi.Naming;
@@ -14,6 +15,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RMIServer extends UnicastRemoteObject implements ServerInterface {
@@ -24,6 +26,12 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
     private static int rmiPort; // 1099
     private UDPConnection heartbeat = null;
     private boolean mainServer = true;
+    private static ArrayList <websocketInterface> webSocketAnnotations = new ArrayList<websocketInterface>();
+    ArrayList <String> users_online = new ArrayList<String>();
+    ArrayList <Integer> mesas_online = new ArrayList<Integer>();
+
+
+
 
     private RMIServer() throws RemoteException {
 
@@ -75,6 +83,78 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
     private void startUDPConnection() {
         this.heartbeat = new UDPConnection(mainServer);
     }
+
+    //Websockets
+    public void subscribeWeb(websocketInterface w) throws RemoteException, SQLException {
+        //System.out.println("Subscribing new client!");
+        if(w != null) {
+            webSocketAnnotations.add(w);
+            System.out.println("added");
+        }
+    }
+
+
+
+    public void unsubscribeWeb(websocketInterface w) throws RemoteException{
+        System.out.println("tryout");
+        //System.out.println("Unsubscribing client...");
+        if(w != null) {
+            webSocketAnnotations.remove(w);
+            System.out.println("out");
+        }
+    }
+
+    public void webNotifier(String message){
+
+        for (int j = 0; j < webSocketAnnotations.size(); j++) {
+            try {
+                webSocketAnnotations.get(j).print_on_websocket(message);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void logoutUser(String ncc) throws RemoteException{
+        if(users_online.contains(ncc)){
+            this.users_online.remove(ncc);
+        }
+        String all_users = "";
+        for(int i = 0; i<users_online.size(); i++){
+            all_users = all_users + users_online.get(i) + ", ";
+        }
+        System.out.println(users_online);
+        webNotifier("user|Utilizador com o cartão de cidadão "+ncc+ " acabou de sair!|Utilizadores online:\n"+all_users);
+    }
+
+    public void mesaNotifica(int id, int flag) throws RemoteException { //0 login, 1 logout
+        if (flag == 0) {
+            if (!mesas_online.contains(id))
+                mesas_online.add(id);
+
+            String all_tables = "";
+            for (int i = 0; i < mesas_online.size(); i++) {
+                all_tables = all_tables + String.valueOf(mesas_online.get(i)) + " ";
+            }
+            webNotifier("mesa| Mesa com id " + id + " acabou de connectar!\n Mesas online:\n" + all_tables);
+
+        }
+        if (flag == 1) {
+            if (mesas_online.contains(id))
+                mesas_online.remove(id);
+
+            String all_tables = "";
+            for (int i = 0; i < mesas_online.size(); i++) {
+                all_tables = all_tables + String.valueOf(mesas_online.get(i)) + " ";
+            }
+            webNotifier("mesa|Mesa com id " + id + " acabou de desconectar!\n Mesas online:\n" + all_tables);
+        }
+    }
+
+    public void votosNotifica() throws RemoteException{
+
+    }
+
 
     // Create
 
@@ -670,6 +750,8 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         else{
             toClient = null;
         }
+
+        webNotifier("voto|Um voto para eleição com id " + String.valueOf(eleicao_id));
         return toClient;
     }
 
@@ -707,6 +789,8 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         else{
             toClient = null;
         }
+
+        webNotifier("voto|Um voto para eleição com id " + String.valueOf(eleicao_id));
         return toClient;
     }
 
@@ -799,7 +883,17 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         ArrayList check = database.submitQuery(sql);
 
         answer = !check.isEmpty();
-
+        if(answer){
+            if(!users_online.contains(String.valueOf(numero_cc))){
+                this.users_online.add(String.valueOf(numero_cc));
+            }
+            String all_users = "";
+            for(int i = 0; i<users_online.size(); i++){
+                all_users = all_users + users_online.get(i) + ", ";
+            }
+            System.out.println("Fez login");
+            webNotifier("user|Utilizador com o cartão de cidadão "+String.valueOf(numero_cc)+ " acabou de entrar!|Utilizadores online:\n"+all_users);
+        }
 
         return answer;
     }
