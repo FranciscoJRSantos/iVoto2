@@ -601,7 +601,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
     }
 
     public boolean unlinkFacebook(Integer cc) throws RemoteException {
-        String sql = "UPDATE utilizador SET facebookID='" + null + "' WHERE numero_cc='" + cc + "';";
+        String sql = "UPDATE utilizador SET facebookID=NULL WHERE numero_cc='" + cc + "';";
         System.out.println("I'm gonna unlink it!");
         database.submitUpdate(sql);
         return true;
