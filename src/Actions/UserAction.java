@@ -70,6 +70,8 @@ public class UserAction extends Action implements SessionAware {
         this.getUserBean().setFacebookID(this.facebookID);
         Integer aux = this.getUserBean().checkFacebookID();
         if (aux != null) {
+            this.getUserBean().setFacebookToken(accessToken.getToken());
+            this.getUserBean().updateFacebookToken();
             session.put("numero_cc", Integer.toString(aux));
             session.put("facebookID", this.facebookID);
             session.put("accessToken", accessToken);
@@ -103,6 +105,7 @@ public class UserAction extends Action implements SessionAware {
         this.getUserBean().setFacebookID(this.facebookID);
         Integer aux = this.getUserBean().checkFacebookID();
         if (aux == null) {
+            this.getUserBean().setFacebookToken(accessToken.getToken());
             if (this.getUserBean().linkAccount()) {
                 session.put("facebookID", this.facebookID);
                 session.put("accessToken", accessToken);
@@ -138,9 +141,17 @@ public class UserAction extends Action implements SessionAware {
             }
         } else if (this.getUserBean().tryLogin()) {
             session.put("numero_cc", this.numero_cc);
+
             this.facebookID = this.getUserBean().getFacebookID();
             this.getUserBean().setFacebookID(this.facebookID);
             session.put("facebookID", this.facebookID);
+
+            if (this.facebookID!=null) {
+                Token accessToken = new Token(this.getUserBean().getFacebookToken(), "");
+                this.getUserBean().setFacebookToken(accessToken.getToken());
+                session.put("accessToken", accessToken);
+            }
+
             session.put("loggedIn", true);
             this.getUserBean().setEleicoesDecorrrer();
             return "success";

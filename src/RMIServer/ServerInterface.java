@@ -1,5 +1,7 @@
 package RMIServer;
 
+import sun.misc.REException;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -40,8 +42,9 @@ public interface ServerInterface extends Remote{
     boolean updateMesaVotoUtilizadores(int numero_cc, int mesa_voto_numero, int id_eleicao) throws RemoteException;
     boolean updateEleicao(Integer id, String nome, String inicio, String fim, String descricao, Integer tipo, String unidade_organica) throws RemoteException;
     boolean updateUser(Integer cc_velho, Integer cc_novo, String nome, String morada, String password, String validade_cc, Integer contacto, String un_org_nome) throws RemoteException;
-    public boolean linkFacebook(Integer cc, String id) throws RemoteException;
-    public boolean unlinkFacebook(Integer cc) throws RemoteException;
+    boolean linkFacebook(Integer cc, String id, String token) throws RemoteException;
+    boolean unlinkFacebook(Integer cc) throws RemoteException;
+    boolean updateUserFacebookToken(Integer cc, String token) throws RemoteException;
 
     // Delete
     boolean deleteUtilizador(int numero_cc) throws RemoteException;
@@ -53,6 +56,7 @@ public interface ServerInterface extends Remote{
     String checkCC(int numero_cc, int eleicao_id) throws RemoteException;
     boolean checkLogin(int numero_cc, String nome, String password_hashed) throws RemoteException;
     boolean isConnected() throws RemoteException;
-    public Integer findFacebookID(String id) throws RemoteException;
-    public String getUserFacebookID(Integer cc) throws RemoteException;
+    Integer findFacebookID(String id) throws RemoteException;
+    String getUserFacebookID(Integer cc) throws RemoteException;
+    String getUserFacebookToken(Integer cc) throws RemoteException;
 }

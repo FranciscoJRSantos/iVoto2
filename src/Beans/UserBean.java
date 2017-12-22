@@ -9,6 +9,7 @@ public class UserBean extends Bean{
     private String username = null;
     private String password = null;
     private String facebookID = null;
+    private String facebookToken = null;
     private ArrayList<ArrayList<String>> eleicoes = null;
     private ArrayList<ArrayList<String>> utilizadores = null;
     private String morada;
@@ -51,9 +52,20 @@ public class UserBean extends Bean{
         return null;
     }
 
+    public String getFacebookToken(){
+        try {
+            return this.server.getUserFacebookToken(this.numero_cc);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     public boolean linkAccount(){
         try {
-            return this.server.linkFacebook(this.numero_cc, this.facebookID);
+
+            return this.server.linkFacebook(this.numero_cc, this.facebookID, this.facebookToken);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -63,6 +75,15 @@ public class UserBean extends Bean{
     public boolean unlinkAccount(){
         try {
             return this.server.unlinkFacebook(this.numero_cc);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateFacebookToken(){
+        try {
+            return this.server.updateUserFacebookToken(this.numero_cc, this.facebookToken);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -80,6 +101,10 @@ public class UserBean extends Bean{
 
     public void setFacebookID(String facebookID) {
         this.facebookID = facebookID;
+    }
+
+    public void setFacebookToken(String facebookToken) {
+        this.facebookToken = facebookToken;
     }
 
     public void setNumeroCC(String numeroCC) {

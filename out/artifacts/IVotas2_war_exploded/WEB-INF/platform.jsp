@@ -28,10 +28,13 @@
             <br>
             <a href="<s:url action="showListsFromElection"/>?eleicaoToVote=${eleicoes_id[i.index]}">
                 Eleicao: ${eleicoes_titulo[i.index]} Local: ${eleicoes_local[i.index]} </a>
-            <button type="submit" class="btn btn-default"
-                    onclick="location.href='<s:url action="postElectionFacebook"/>?electionID=${eleicoes_id[i.index]}'">
-                Share this election on Facebook
-            </button>
+            <s:if test="%{#session.facebookID!=null }">
+                <button type="submit" class="btn btn-default"
+                        onclick="location.href='<s:url
+                                action="postElectionFacebook"/>?electionID=${eleicoes_id[i.index]}'">
+                    Share this election on Facebook
+                </button>
+            </s:if>
             <br>
         </c:forEach>
     </div>
@@ -44,14 +47,16 @@
     <div>
         <h2> Facebook linking </h2>
         <s:if test="%{#session.facebookID==null }">
-            <p>Your account isn't linked to any Facebook Account. If you want to enable Facebook Login click the button below</p>
+            <p>Your account isn't linked to any Facebook Account. If you want to enable Facebook Login click the button
+                below</p>
             <button type="submit" class="btn btn-default"
                     onclick="location.href='https://www.facebook.com/v2.2/dialog/oauth?client_id=157491105017602&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FlinkFacebook.action&scope=publish_actions'">
                 Link Account with Facebook
             </button>
         </s:if>
         <s:else>
-            <p>Your account is currently linked to the Facebook Account ID <s:property value="%{#session.facebookID}"/></p>
+            <p>Your account is currently linked to the Facebook Account ID <s:property
+                    value="%{#session.facebookID}"/></p>
             <button type="submit" class="btn btn-default" onclick="location.href='/unlinkFacebook.action'">
                 Unlink Account
             </button>

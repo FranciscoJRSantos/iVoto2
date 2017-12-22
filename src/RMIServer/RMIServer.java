@@ -244,7 +244,7 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         String sqlTotalVotos = "SELECT SUM(votos) FROM lista WHERE eleicao_id ='" + eleicao_id + "';";
 
         String sqlNome = "SELECT nome FROM lista WHERE eleicao_id='" + eleicao_id +"' ORDER BY votos DESC;";
-        String sqlVotos = "SELECT votos FROM lista WHERE eleicao_id'" + eleicao_id +"' ORDER BY votos DESC;";
+        String sqlVotos = "SELECT votos FROM lista WHERE eleicao_id='" + eleicao_id +"' ORDER BY votos DESC;";
 
         total_votos_lista = database.submitQuery(sqlTotalVotos);
         nome_lista = database.submitQuery(sqlNome);
@@ -710,15 +710,22 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
         return toClient;
     }
 
-    public boolean linkFacebook(Integer cc, String id) throws RemoteException {
+    public boolean linkFacebook(Integer cc, String id, String token) throws RemoteException {
         String sql = "UPDATE utilizador SET facebookID='" + id + "' WHERE numero_cc='" + cc + "';";
         database.submitUpdate(sql);
-        return true;
+        return updateUserFacebookToken(cc, token);
     }
 
     public boolean unlinkFacebook(Integer cc) throws RemoteException {
         String sql = "UPDATE utilizador SET facebookID=NULL WHERE numero_cc='" + cc + "';";
-        System.out.println("I'm gonna unlink it!");
+        database.submitUpdate(sql);
+        sql = "UPDATE utilizador SET facebookToken=NULL WHERE numero_cc='" + cc + "';";
+        database.submitUpdate(sql);
+        return true;
+    }
+
+    public boolean updateUserFacebookToken(Integer cc, String token) throws RemoteException {
+        String sql = "UPDATE utilizador SET facebookToken='" + token + "' WHERE numero_cc='" + cc + "';";
         database.submitUpdate(sql);
         return true;
     }
@@ -773,6 +780,13 @@ public class RMIServer extends UnicastRemoteObject implements ServerInterface {
 
     public String getUserFacebookID(Integer cc) throws RemoteException {
         String sql = "SELECT facebookID FROM utilizador WHERE numero_cc ='" + cc + "';";
+        ArrayList<String> user_data = database.submitQuery(sql);
+        if (user_data.isEmpty()) return null;
+        return user_data.get(0);
+    }
+
+    public String getUserFacebookToken(Integer cc) throws RemoteException {
+        String sql = "SELECT facebookToken FROM utilizador WHERE numero_cc ='" + cc + "';";
         ArrayList<String> user_data = database.submitQuery(sql);
         if (user_data.isEmpty()) return null;
         return user_data.get(0);
