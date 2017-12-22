@@ -118,6 +118,7 @@ public class UserAction extends Action implements SessionAware{
         this.session.remove("loggedIn");
         this.session.remove("UserBean");
         System.out.println(this.session);
+        this.getUserBean().logoutRMI(numero_cc);
         return "success";
     }
 }

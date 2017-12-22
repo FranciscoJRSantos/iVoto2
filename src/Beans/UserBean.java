@@ -23,6 +23,7 @@ public class UserBean extends Bean{
     public boolean tryLogin(){
         try {
             return this.server.checkLogin(this.numero_cc,this.username,this.password);
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -87,4 +88,11 @@ public class UserBean extends Bean{
         return this.utilizadores;
     }
 
+    public void logoutRMI(String ncc){
+        try {
+            server.logoutUser(ncc);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,12 +1,13 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: franciscosantos
-  Date: 18/12/2017
-  Time: 11:11
+  Date: 12/12/2017
+  Time: 22:36
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>IVotas2</title>
@@ -14,14 +15,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-<div class="container-fluid">
-    <s:form action="createUO" method="POST">
-        Nome: <s:textfield name="nome"/>
-        <br>
-        Percente à Faculdade: <s:textfield name="pertence"/>
-        <br>
-        <s:submit value="Criar Unidade Organica" class="btn btn-default"/>
-    </s:form>
+<div>
+    <h2> Utilizadores </h2>
 </div>
+<div class="container-fluid">
+    <c:forEach items="${users}" var="user">
+        <a href="<s:url action="showUserDetails"/>?user=${user}">${user}</a>
+
+        <br>
+    </c:forEach>
+</div>
+
 </body>
 </html>
