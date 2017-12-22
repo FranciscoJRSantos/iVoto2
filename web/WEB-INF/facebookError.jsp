@@ -16,7 +16,7 @@
     <p>Your Facebook account is not linked to any iVotas account.</p>
     <p>Please link your Facebook account to your iVotas account after login in.</p>
 
-    <a href="index.action">Back to Login</a>
+    <a href="/">Back to Login</a>
 </div>
 </body>
 </html>
